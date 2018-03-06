@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "COpenSSL",
+        "repositoryURL": "https://github.com/vapor/copenssl",
+        "state": {
+          "branch": "master",
+          "revision": "a347e9ec038b134aecf42e0c21f2deb9035adf3f",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
