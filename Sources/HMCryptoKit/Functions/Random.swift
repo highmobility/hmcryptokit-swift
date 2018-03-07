@@ -21,17 +21,17 @@ public let kSerialNumberSize    = 9
 public extension HMCryptoKit {
 
     static func nonce(_ length: Int = kNonceSize) throws -> [UInt8] {
-        return try GenerateRandomBytes(length)
+        return try randomBytes(length)
     }
 
     static func serial(_ length: Int = kSerialNumberSize) throws -> [UInt8] {
-        return try GenerateRandomBytes(length)
+        return try randomBytes(length)
     }
 }
 
 private extension HMCryptoKit {
 
-    static func GenerateRandomBytes(_ length: Int) throws -> [UInt8] {
+    static func randomBytes(_ length: Int) throws -> [UInt8] {
         var bytes = [UInt8](repeating: 0x00, count: length)
 
         #if os(Linux)

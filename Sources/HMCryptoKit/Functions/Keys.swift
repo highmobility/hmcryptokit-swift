@@ -18,11 +18,11 @@ import Foundation
 
 public extension HMCryptoKit {
 
-    static func keys(_ privateKey: Key? = nil) throws -> KeyPair {
+    static func keys(_ privateKey: [UInt8]? = nil) throws -> (privateKey: [UInt8], publicKey: [UInt8]) {
 //        #if os(Linux)
         let group: OpaquePointer
         let point: OpaquePointer
-        let privateKeyResolved: Key
+        let privateKeyResolved: [UInt8]
 
         if let privateKey = privateKey {
             guard let groupTemp = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1),
@@ -47,13 +47,9 @@ public extension HMCryptoKit {
             // Create the key
             guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
                 EC_KEY_generate_key(key) == 1,
-                EC_KEY_check_key(key) == 1 else {
+                EC_KEY_check_key(key) == 1,
+                let privateBN = EC_KEY_get0_private_key(key) else {
                     throw HMCryptoKitError.internalSecretError
-            }
-
-            // Extract the private key
-            guard let privateBN = EC_KEY_get0_private_key(key) else {
-                throw HMCryptoKitError.internalSecretError
             }
 
             let privateSize = Int(ceil(Float(BN_num_bits(privateBN)) / 8.0))
@@ -88,7 +84,7 @@ public extension HMCryptoKit {
         }
 
         // POINT_CONVERSION_UNCOMPRESSED produces z|x|y, where z == 0x04
-        return KeyPair(privateKey: privateKeyResolved, publicKey: publicKeyZXY.suffix(from: 1).bytes)
+        return (privateKey: privateKeyResolved, publicKey: publicKeyZXY.suffix(from: 1).bytes)
 
 //        #else
 //            var pubKey: Key?
@@ -110,12 +106,13 @@ public extension HMCryptoKit {
 //        #endif
     }
 
-    static func sharedKey(_ privateKey: Key, _ publicKey: Key) throws -> [UInt8] {
-        let publicKeyY = publicKey.suffix(from: 32).bytes
+    static func sharedKey<C: Collection>(privateKey: C, publicKey: C) throws -> [UInt8] where C.Element == UInt8 {
+        let publicKeyY = publicKey.bytes.suffix(from: 32).bytes
 
+        // Extract some vectors
         guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-            let privateBN = BN_bin2bn(privateKey, 32, nil),
-            let publicXBN = BN_bin2bn(publicKey, 32, nil),
+            let privateBN = BN_bin2bn(privateKey.bytes, 32, nil),
+            let publicXBN = BN_bin2bn(publicKey.bytes, 32, nil),
             let publicYBN = BN_bin2bn(publicKeyY, 32, nil) else {
                 throw HMCryptoKitError.internalSecretError
         }
@@ -140,16 +137,3 @@ public extension HMCryptoKit {
         return sharedKey
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

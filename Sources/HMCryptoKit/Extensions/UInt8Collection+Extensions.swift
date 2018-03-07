@@ -8,7 +8,7 @@
 import Foundation
 
 
-public extension Collection where Iterator.Element == UInt8 {
+public extension Collection where Element == UInt8 {
 
     /// The combined *hex* string representation of the values in the collection.
     var hex: String {
