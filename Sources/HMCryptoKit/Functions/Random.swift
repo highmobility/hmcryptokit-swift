@@ -7,11 +7,13 @@
 
 import Foundation
 
-#if os(Linux)
+// WHY DO I EVEN BOTHER WITH NON-OPENSSL STUFF?!
+
+//#if os(Linux)
     import COpenSSL
-#else
-    import Security
-#endif
+//#else
+//    import Security
+//#endif
 
 
 public let kNonceSize           = 9
@@ -34,16 +36,16 @@ private extension HMCryptoKit {
     static func randomBytes(_ length: Int) throws -> [UInt8] {
         var bytes = [UInt8](repeating: 0x00, count: length)
 
-        #if os(Linux)
+//        #if os(Linux)
             guard RAND_bytes(&bytes, Int32(length)) == 1 else {
                 // TODO: Get the error from ERR_get_error
                 throw HMCryptoKitError.internalSecretError
             }
-        #else
-            guard SecRandomCopyBytes(kSecRandomDefault, length, &bytes) == 0 else {
-                throw HMCryptoKitError.systemError(errno)
-            }
-        #endif
+//        #else
+//            guard SecRandomCopyBytes(kSecRandomDefault, length, &bytes) == 0 else {
+//                throw HMCryptoKitError.systemError(errno)
+//            }
+//        #endif
 
         return bytes
     }

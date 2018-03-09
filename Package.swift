@@ -9,7 +9,7 @@ let package = Package(
         .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/copenssl", .branch("master")),
+        .package(url: "https://github.com/highmobility/copenssl", .branch("master")),
     ],
     targets: [
         .target(name: "HMCryptoKit", dependencies: []),

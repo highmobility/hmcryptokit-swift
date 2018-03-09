@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "COpenSSL",
-        "repositoryURL": "https://github.com/vapor/copenssl",
+        "repositoryURL": "https://github.com/highmobility/copenssl",
         "state": {
           "branch": "master",
-          "revision": "a347e9ec038b134aecf42e0c21f2deb9035adf3f",
+          "revision": "8f7968d8297cb59d48bc75975f97d5717f61211c",
           "version": null
         }
       }
