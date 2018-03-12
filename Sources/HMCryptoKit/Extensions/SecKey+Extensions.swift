@@ -40,6 +40,10 @@ import Foundation
             }
         }
 
+        var count: Int {
+            return bytes.count
+        }
+
         var data: Data {
             return bytes.data
         }

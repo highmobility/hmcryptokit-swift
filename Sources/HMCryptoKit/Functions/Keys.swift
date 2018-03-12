@@ -84,6 +84,24 @@ public extension HMCryptoKit {
     }
 
 
+    #if os(iOS) || os(tvOS) || os(watchOS)
+    static func publicKey<C: Collection>(_ binary: C) throws -> ECKey where C.Element == UInt8 {
+        guard binary.count == 64 else {
+            throw HMCryptoKitError.internalSecretError
+        }
+
+        let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPublic, kSecAttrKeySizeInBits : 256]
+        var error: Unmanaged<CFError>?
+
+        guard let publicKey = SecKeyCreateWithData((binary.data as CFData), attributes, &error) else {
+            throw HMCryptoKitError.internalSecretError // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
+
+        return publicKey
+    }
+    #endif
+
+
     static func sharedKey(privateKey: ECKey, publicKey: ECKey) throws -> [UInt8] {
         #if os(iOS) || os(tvOS) || os(watchOS)
             let params: NSDictionary = [SecKeyKeyExchangeParameter.requestedSize : 32]
