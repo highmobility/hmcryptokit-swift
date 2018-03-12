@@ -12,7 +12,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/copenssl", .branch("master")),
     ],
     targets: [
-        .target(name: "HMCryptoKit", dependencies: ["COpenSSL"]),
+        .target(name: "HMCryptoKit", dependencies: []),
         .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
     ]
