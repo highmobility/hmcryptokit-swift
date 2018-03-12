@@ -9,6 +9,15 @@
 import Foundation
 
 
+#if os(iOS) || os(tvOS) || os(watchOS)
+    import Security
+
+    public typealias ECKey = SecKey
+#else
+    public typealias ECKey = [UInt8]
+#endif
+
+
 public struct HMCryptoKit {
 
 }
