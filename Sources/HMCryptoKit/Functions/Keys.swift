@@ -85,19 +85,37 @@ public extension HMCryptoKit {
 
 
     #if os(iOS) || os(tvOS) || os(watchOS)
-    static func publicKey<C: Collection>(_ binary: C) throws -> ECKey where C.Element == UInt8 {
+    static func publicKey<C: Collection>(binary: C) throws -> ECKey where C.Element == UInt8 {
         guard binary.count == 64 else {
             throw HMCryptoKitError.internalSecretError
         }
 
         let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPublic, kSecAttrKeySizeInBits : 256]
+        let bytes = [0x04] + binary.bytes
         var error: Unmanaged<CFError>?
 
-        guard let publicKey = SecKeyCreateWithData((binary.data as CFData), attributes, &error) else {
+        guard let publicKey = SecKeyCreateWithData((bytes.data as CFData), attributes, &error) else {
             throw HMCryptoKitError.internalSecretError // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
         }
 
         return publicKey
+    }
+
+    static func privateKey<C: Collection>(privateKeyBinary: C, publicKeyBinary: C) throws -> ECKey where C.Element == UInt8 {
+        guard privateKeyBinary.count == 32,
+            publicKeyBinary.count == 64 else {
+                throw HMCryptoKitError.internalSecretError
+        }
+
+        let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPrivate, kSecAttrKeySizeInBits : 256]
+        let publicKeyBytes = [0x04] + publicKeyBinary.bytes
+        var error: Unmanaged<CFError>?
+
+        guard let privateKey = SecKeyCreateWithData(((privateKeyBinary.bytes + publicKeyBytes).data as CFData), attributes, &error) else {
+            throw HMCryptoKitError.internalSecretError //  HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
+
+        return privateKey
     }
     #endif
 
