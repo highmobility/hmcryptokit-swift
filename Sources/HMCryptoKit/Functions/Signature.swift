@@ -6,12 +6,48 @@
 //
 
 import Foundation
+
+//#if os(iOS) || os(tvOS) || os(watchOS)
+import Security
+//#else
 import COpenSSL
+//#endif
 
 
 public extension HMCryptoKit {
 
-    static func createSignature<C: Collection>(message: C, privateKey: C) throws -> [UInt8] where C.Element == UInt8 {
+    #if os(iOS) || os(tvOS) || os(watchOS)
+    static func signature<C: Collection>(message: C, privateKey: SecKey) throws -> [UInt8] where C.Element == UInt8 {
+        // Pad the message to be a multiple of 64
+        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
+        var error: Unmanaged<CFError>?
+
+        // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
+        guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), &error) as Data? else {
+            throw HMCryptoKitError.internalSecretError  // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
+
+        /*
+         The format: 0x30 b1 0x02 b2 (vr) 0x02 b3 (vs)
+         */
+        let b2 = signature[3]           // Length of vR
+        let b3 = signature[5 + Int(b2)] // Length of vS
+
+        var vR = signature[4 ..< (4 + Int(b2))].bytes
+        var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))].bytes
+
+        // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
+        vR = vR.drop { $0 == 0x00 }.bytes
+        vS = vS.drop { $0 == 0x00 }.bytes
+
+        // Expands the vectors to our desired size of 32 bytes
+        while vR.count < 32 { vR.insert(0x00, at: 0) }
+        while vS.count < 32 { vS.insert(0x00, at: 0) }
+
+        return vR + vS
+    }
+    #else
+    static func signature<C: Collection>(message: C, privateKey: C) throws -> [UInt8] where C.Element == UInt8 {
         // Manage the key
         guard privateKey.count == 32,
             let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
@@ -43,7 +79,24 @@ public extension HMCryptoKit {
 
         return rVector + sVector
     }
+    #endif
 
+
+    #if os(iOS) || os(tvOS) || os(watchOS)
+    static func _verify<C: Collection>(signature: C, message: C, publicKey: SecKey) throws -> Bool where C.Element == UInt8 {
+        // Pad the message to be a multiple of 64
+        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
+        var error: Unmanaged<CFError>?
+
+        let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), (signature.data as CFData), &error)
+
+        guard error == nil else {
+            throw HMCryptoKitError.internalSecretError  // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
+
+        return verified
+    }
+    #else
     static func verify<C: Collection>(signature: C, message: C, publicKey: C) throws -> Bool where C.Element == UInt8 {
         guard signature.count == 64,
             publicKey.count == 64 else {
@@ -75,4 +128,5 @@ public extension HMCryptoKit {
 
         return ECDSA_do_verify(digest, SHA256_DIGEST_LENGTH, sig, key) == 1
     }
+    #endif
 }

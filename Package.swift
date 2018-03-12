@@ -9,6 +9,7 @@ let package = Package(
         .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/IBM-Swift/CommonCrypto", from: "1.0.0"),
         .package(url: "https://github.com/vapor/copenssl", .branch("master")),
     ],
     targets: [

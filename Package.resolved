@@ -3,11 +3,20 @@
     "pins": [
       {
         "package": "COpenSSL",
-        "repositoryURL": "https://github.com/highmobility/copenssl",
+        "repositoryURL": "https://github.com/vapor/copenssl",
         "state": {
           "branch": "master",
-          "revision": "8f7968d8297cb59d48bc75975f97d5717f61211c",
+          "revision": "a347e9ec038b134aecf42e0c21f2deb9035adf3f",
           "version": null
+        }
+      },
+      {
+        "package": "CommonCrypto",
+        "repositoryURL": "https://github.com/IBM-Swift/CommonCrypto",
+        "state": {
+          "branch": null,
+          "revision": "9156d238dbc4c15455b77b45e721b2bb0b995e31",
+          "version": "1.0.0"
         }
       }
     ]

@@ -12,7 +12,8 @@ print("Private key:", keys?.privateKey.hex ?? "nil")
 print("Public key: ", keys?.publicKey.hex ?? "nil")
 print()
 
-let newKeys = try? HMCryptoKit.keys(keys?.privateKey)
+
+let newKeys = try? HMCryptoKit.keys(privateKey: keys!.privateKey)
 print("Private key:", newKeys?.privateKey.hex ?? "nil")
 print("Public key: ", newKeys?.publicKey.hex ?? "nil")
 print()
@@ -36,7 +37,7 @@ print("KEY:", key.hex)
 print("OUT:", encypted?.hex ?? "nil")
 print()
 
-let sig = try? HMCryptoKit.createSignature(message: msg, privateKey: keys!.privateKey)
+let sig = try? HMCryptoKit.signature(message: msg, privateKey: keys!.privateKey)
 print("MSG:", msg.hex)
 print("KEY:", keys?.privateKey.hex ?? "nil")
 print("SIG:", sig?.hex ?? "nil")

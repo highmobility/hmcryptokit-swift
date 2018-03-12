@@ -6,79 +6,101 @@
 //
 
 import Foundation
-import COpenSSL
+
+#if os(iOS) || os(tvOS) || os(watchOS)
+    import Security
+#else
+    import COpenSSL
+#endif
 
 
 public extension HMCryptoKit {
 
-    static func keys(_ privateKey: [UInt8]? = nil) throws -> (privateKey: [UInt8], publicKey: [UInt8]) {
-        let group: OpaquePointer
-        let point: OpaquePointer
-        let privateKeyResolved: [UInt8]
+    #if os(iOS) || os(tvOS) || os(watchOS)
+    static func keys() throws -> (privateKey: SecKey, publicKey: SecKey) {
+        let params: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeySizeInBits : 256]
+        var publicKey: SecKey?
+        var privateKey: SecKey?
 
-        if let privateKey = privateKey {
-            guard let groupTemp = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1),
-                let privateBN = BN_bin2bn(privateKey, 32, nil),
-                let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-                let pointTemp = EC_POINT_new(groupTemp) else {
+        let status = SecKeyGeneratePair(params, &publicKey, &privateKey)
+
+        switch status {
+        case errSecSuccess:
+            guard let publicKey = publicKey,
+                let privateKey = privateKey else {
                     throw HMCryptoKitError.internalSecretError
             }
 
-            guard EC_KEY_set_private_key(key, privateBN) == 1,
-                EC_KEY_generate_key(key) == 1,
-                EC_KEY_check_key(key) == 1,
-                EC_POINT_mul(groupTemp, pointTemp, privateBN, nil, nil, nil) == 1 else {
-                    throw HMCryptoKitError.internalSecretError
-            }
+            return (privateKey: privateKey, publicKey: publicKey)
 
-            group = groupTemp
-            point = pointTemp
-            privateKeyResolved = privateKey
+        default:
+            throw HMCryptoKitError.internalSecretError
         }
-        else {
-            // Create the key
-            guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-                EC_KEY_generate_key(key) == 1,
-                EC_KEY_check_key(key) == 1,
-                let privateBN = EC_KEY_get0_private_key(key) else {
-                    throw HMCryptoKitError.internalSecretError
-            }
-
-            let privateSize = Int(ceil(Float(BN_num_bits(privateBN)) / 8.0))
-            var privateKeyTemp = [UInt8](zeroFilledTo: 32)
-
-            guard BN_bn2bin(privateBN, &privateKeyTemp + (32 - privateSize)) == 32 else {
+    }
+    #else
+    static func keys() throws -> (privateKey: [UInt8], publicKey: [UInt8]) {
+        // Create the key
+        guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
+            EC_KEY_generate_key(key) == 1,
+            EC_KEY_check_key(key) == 1,
+            let privateBN = EC_KEY_get0_private_key(key) else {
                 throw HMCryptoKitError.internalSecretError
-            }
-
-            // Extract the public key (after creating the vars)
-            guard let groupTemp = EC_KEY_get0_group(key),
-                let pointTemp = EC_KEY_get0_public_key(key) else {
-                    throw HMCryptoKitError.internalSecretError
-            }
-
-            group = groupTemp
-            point = pointTemp
-            privateKeyResolved = privateKeyTemp
         }
 
+        let privateOffset = 32 - Int(ceil(Float(BN_num_bits(privateBN)) / 8.0))
+        var privateKey = [UInt8](zeroFilledTo: 32)
+
+        guard BN_bn2bin(privateBN, &privateKey + privateOffset) == 32 else {
+            throw HMCryptoKitError.internalSecretError
+        }
+
+        return try keys(privateKey: privateKey)
+    }
+    #endif
+
+
+    #if os(iOS) || os(tvOS) || os(watchOS)
+    static func keys(privateKey: SecKey) throws -> (privateKey: SecKey, publicKey: SecKey) {
+        guard let publicKey = SecKeyCopyPublicKey(privateKey) else {
+            throw HMCryptoKitError.internalSecretError
+        }
+
+        return (privateKey: privateKey, publicKey: publicKey)
+    }
+    #else
+    static func keys<C: Collection>(privateKey: C) throws -> (privateKey: [UInt8], publicKey: [UInt8]) where C.Element == UInt8 {
         // Handle public key values extraction
         guard let publicBN = BN_new(),
             let bnCtx = BN_CTX_new() else {
                 throw HMCryptoKitError.internalSecretError
         }
 
+        let values = try extractGroupAndPoint(privateKey: privateKey)
         var publicKeyZXY = [UInt8](zeroFilledTo: 65)
 
-        guard EC_POINT_point2bn(group, point, POINT_CONVERSION_UNCOMPRESSED, publicBN, bnCtx) != nil,
+        guard EC_POINT_point2bn(values.group, values.point, POINT_CONVERSION_UNCOMPRESSED, publicBN, bnCtx) != nil,
             BN_bn2bin(publicBN, &publicKeyZXY) == 65 else {
                 throw HMCryptoKitError.internalSecretError
         }
 
-        // POINT_CONVERSION_UNCOMPRESSED produces z|x|y, where z == 0x04
-        return (privateKey: privateKeyResolved, publicKey: publicKeyZXY.suffix(from: 1).bytes)
+        // POINT_CONVERSION_UNCOMPRESSED produces Z||X||Y, where Z == 0x04
+        return (privateKey: privateKey.bytes, publicKey: publicKeyZXY.suffix(from: 1).bytes)
     }
+    #endif
 
+
+    #if os(iOS) || os(tvOS) || os(watchOS)
+    static func sharedKey(privateKey: SecKey, publicKey: SecKey) throws -> [UInt8] {
+        let params: NSDictionary = [SecKeyKeyExchangeParameter.requestedSize : 32]
+        var error: Unmanaged<CFError>?
+
+        guard let sharedKey = SecKeyCopyKeyExchangeResult(privateKey, .ecdhKeyExchangeStandardX963SHA256, publicKey, params, &error) else {
+            throw HMCryptoKitError.internalSecretError // throw the wrapped error: HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
+
+        return (sharedKey as Data).bytes
+    }
+    #else
     static func sharedKey<C: Collection>(privateKey: C, publicKey: C) throws -> [UInt8] where C.Element == UInt8 {
         let publicKeyY = publicKey.bytes.suffix(from: 32).bytes
 
@@ -109,4 +131,29 @@ public extension HMCryptoKit {
 
         return sharedKey
     }
+    #endif
 }
+
+#if os(iOS) || os(tvOS) || os(watchOS)
+#else
+private extension HMCryptoKit {
+
+    static func extractGroupAndPoint<C: Collection>(privateKey: C) throws -> (group: OpaquePointer, point: OpaquePointer) where C.Element == UInt8 {
+        guard let group = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1),
+            let privateBN = BN_bin2bn(privateKey.bytes, 32, nil),
+            let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
+            let point = EC_POINT_new(group) else {
+                throw HMCryptoKitError.internalSecretError
+        }
+
+        guard EC_KEY_set_private_key(key, privateBN) == 1,
+            EC_KEY_generate_key(key) == 1,
+            EC_KEY_check_key(key) == 1,
+            EC_POINT_mul(group, point, privateBN, nil, nil, nil) == 1 else {
+                throw HMCryptoKitError.internalSecretError
+        }
+
+        return (group: group, point: point)
+    }
+}
+#endif
