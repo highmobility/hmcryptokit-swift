@@ -61,4 +61,8 @@ public extension HMCryptoKit {
             return output + additionalOutput
         #endif
     }
+
+    static func iv<C: Collection>(nonce: C, transactionNonce: C) -> [UInt8] where C.Element == UInt8 {
+        return nonce.bytes.prefix(7).bytes + transactionNonce
+    }
 }
