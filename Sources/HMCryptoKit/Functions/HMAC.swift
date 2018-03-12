@@ -16,7 +16,7 @@ public extension HMCryptoKit {
             throw HMCryptoKitError.internalSecretError
         }
 
-        var digest = [UInt8](repeating: 0x00, count: 32)
+        var digest = [UInt8](zeroFilledTo: 32)
         
         guard HMAC(hashFunction, key.bytes, Int32(key.count), message.bytes, Int(message.count), &digest, nil) != nil else {
             throw HMCryptoKitError.internalSecretError

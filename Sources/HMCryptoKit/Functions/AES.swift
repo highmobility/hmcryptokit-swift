@@ -24,8 +24,8 @@ public extension HMCryptoKit {
         }
 
         let additionalCount = Int(message.count) % kEncryptionBlockSize
-        var output = [UInt8](repeating: 0x00, count: Int(message.count))
-        var additionalOutput = [UInt8](repeating: 0x00, count: additionalCount)
+        var output = [UInt8](zeroFilledTo: Int(message.count))
+        var additionalOutput = [UInt8](zeroFilledTo: additionalCount)
         var len: Int32 = 0
 
         guard let ctx = EVP_CIPHER_CTX_new(),
@@ -35,6 +35,6 @@ public extension HMCryptoKit {
                 throw HMCryptoKitError.internalSecretError
         }
 
-        return output
+        return output + additionalOutput
     }
 }

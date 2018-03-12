@@ -9,10 +9,10 @@ let package = Package(
         .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/highmobility/copenssl", .branch("master")),
+        .package(url: "https://github.com/vapor/copenssl", .branch("master")),
     ],
     targets: [
-        .target(name: "HMCryptoKit", dependencies: []),
+        .target(name: "HMCryptoKit", dependencies: ["COpenSSL"]),
         .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
     ]

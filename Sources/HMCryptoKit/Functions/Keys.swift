@@ -6,20 +6,12 @@
 //
 
 import Foundation
-
-// WHY DO I EVEN BOTHER WITH NON-OPENSSL STUFF?!
-
-//#if os(Linux)
-    import COpenSSL
-//#else
-//    import Security
-//#endif
+import COpenSSL
 
 
 public extension HMCryptoKit {
 
     static func keys(_ privateKey: [UInt8]? = nil) throws -> (privateKey: [UInt8], publicKey: [UInt8]) {
-//        #if os(Linux)
         let group: OpaquePointer
         let point: OpaquePointer
         let privateKeyResolved: [UInt8]
@@ -53,7 +45,7 @@ public extension HMCryptoKit {
             }
 
             let privateSize = Int(ceil(Float(BN_num_bits(privateBN)) / 8.0))
-            var privateKeyTemp = [UInt8](repeating: 0x00, count: 32)
+            var privateKeyTemp = [UInt8](zeroFilledTo: 32)
 
             guard BN_bn2bin(privateBN, &privateKeyTemp + (32 - privateSize)) == 32 else {
                 throw HMCryptoKitError.internalSecretError
@@ -76,7 +68,7 @@ public extension HMCryptoKit {
                 throw HMCryptoKitError.internalSecretError
         }
 
-        var publicKeyZXY = [UInt8](repeating: 0x00, count: 65)
+        var publicKeyZXY = [UInt8](zeroFilledTo: 65)
 
         guard EC_POINT_point2bn(group, point, POINT_CONVERSION_UNCOMPRESSED, publicBN, bnCtx) != nil,
             BN_bn2bin(publicBN, &publicKeyZXY) == 65 else {
@@ -85,25 +77,6 @@ public extension HMCryptoKit {
 
         // POINT_CONVERSION_UNCOMPRESSED produces z|x|y, where z == 0x04
         return (privateKey: privateKeyResolved, publicKey: publicKeyZXY.suffix(from: 1).bytes)
-
-//        #else
-//            var pubKey: Key?
-//            var privKey: Key?
-//            let parameters: NSDictionary = [kSecAttrType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeySizeInBits : 256]
-//            let status = SecKeyGeneratePair(parameters, &pubKey, &privKey)
-//
-//            switch status {
-//            case errSecSuccess:
-//                guard let publicKey = pubKey, let privateKey = privKey else {
-//                    throw HMCryptoKitError.internalSecretError
-//                }
-//
-//                return KeyPair(privateKey: privateKey, publicKey: publicKey)
-//
-//            default:
-//                throw HMCryptoKitError.osStatusError(status)
-//            }
-//        #endif
     }
 
     static func sharedKey<C: Collection>(privateKey: C, publicKey: C) throws -> [UInt8] where C.Element == UInt8 {
@@ -127,7 +100,7 @@ public extension HMCryptoKit {
                 throw HMCryptoKitError.internalSecretError
         }
 
-        var sharedKey = [UInt8](repeating: 0x00, count: 32)
+        var sharedKey = [UInt8](zeroFilledTo: 32)
 
         guard EC_POINT_set_affine_coordinates_GFp(group, point, publicXBN, publicYBN, bnCtx) == 1,
             ECDH_compute_key(&sharedKey, 32, point, key, nil) != -1 else {

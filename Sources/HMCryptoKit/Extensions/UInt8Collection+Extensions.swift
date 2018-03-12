@@ -25,3 +25,10 @@ public extension Collection where Element == UInt8 {
         return Data(bytes: bytes)
     }
 }
+
+extension Array where Element == UInt8 {
+
+    init(zeroFilledTo size: Int) {
+        self.init(repeating: 0x00, count: size)
+    }
+}
