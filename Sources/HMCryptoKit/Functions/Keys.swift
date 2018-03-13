@@ -94,6 +94,7 @@ public extension HMCryptoKit {
             let bytes = [0x04] + binary.bytes
             var error: Unmanaged<CFError>?
 
+            // Data format: 04 || X || Y
             guard let publicKey = SecKeyCreateWithData((bytes.data as CFData), attributes, &error) else {
                 throw HMCryptoKitError.internalSecretError // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
