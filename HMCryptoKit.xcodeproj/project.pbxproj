@@ -341,14 +341,13 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[sdk=macosx*]" = (
-					"$(inherited)",
 					"-L/usr/local/Cellar/openssl/1.0.2n/lib",
 					"-lssl",
 					"-L/usr/local/Cellar/openssl/1.0.2n/lib",
 					"-lcrypto",
 				);
 				OTHER_SWIFT_FLAGS = "";
-				"OTHER_SWIFT_FLAGS[sdk=macosx*]" = "$(inherited) -I/usr/local/Cellar/openssl/1.0.2n/include -I/usr/local/Cellar/openssl/1.0.2n/include";
+				"OTHER_SWIFT_FLAGS[sdk=macosx*]" = "-I/usr/local/Cellar/openssl/1.0.2n/include -I/usr/local/Cellar/openssl/1.0.2n/include";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
@@ -372,14 +371,13 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[sdk=macosx*]" = (
-					"$(inherited)",
 					"-L/usr/local/Cellar/openssl/1.0.2n/lib",
 					"-lssl",
 					"-L/usr/local/Cellar/openssl/1.0.2n/lib",
 					"-lcrypto",
 				);
 				OTHER_SWIFT_FLAGS = "";
-				"OTHER_SWIFT_FLAGS[sdk=macosx*]" = "$(inherited) -I/usr/local/Cellar/openssl/1.0.2n/include -I/usr/local/Cellar/openssl/1.0.2n/include";
+				"OTHER_SWIFT_FLAGS[sdk=macosx*]" = "-I/usr/local/Cellar/openssl/1.0.2n/include -I/usr/local/Cellar/openssl/1.0.2n/include";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
