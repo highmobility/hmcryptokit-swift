@@ -112,10 +112,10 @@ public extension HMCryptoKit {
             }
 
             let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPrivate, kSecAttrKeySizeInBits : 256]
-            let publicKeyBytes = [0x04] + publicKeyBinary.bytes
             var error: Unmanaged<CFError>?
 
-            guard let privateKey = SecKeyCreateWithData(((privateKeyBinary.bytes + publicKeyBytes).data as CFData), attributes, &error) else {
+            // Data format: 04 || X || Y || K
+            guard let privateKey = SecKeyCreateWithData((([0x04] + publicKeyBinary.bytes + privateKeyBinary.bytes).data as CFData), attributes, &error) else {
                 throw HMCryptoKitError.internalSecretError //  HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
