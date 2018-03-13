@@ -7,11 +7,11 @@
 
 import Foundation
 
-//#if os(iOS) || os(tvOS) || os(watchOS)
-import Security
-//#else
-import COpenSSL
-//#endif
+#if os(iOS) || os(tvOS) || os(watchOS)
+    import Security
+#else
+    import COpenSSL
+#endif
 
 
 public extension HMCryptoKit {
