@@ -21,10 +21,11 @@ public extension HMCryptoKit {
             throw HMCryptoKitError.internalSecretError
         }
 
+        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
         var digest = [UInt8](zeroFilledTo: 32)
 
         #if os(iOS) || os(tvOS) || os(watchOS)
-            CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), key.bytes, Int(key.count), message.bytes, Int(message.count), &digest)
+            CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), key.bytes, Int(key.count), paddedMessage.bytes, Int(paddedMessage.count), &digest)
 
             guard digest != [UInt8](zeroFilledTo: 32) else {
                 throw HMCryptoKitError.internalSecretError
@@ -34,7 +35,7 @@ public extension HMCryptoKit {
                 throw HMCryptoKitError.internalSecretError
             }
 
-            guard HMAC(hashFunction, key.bytes, Int32(key.count), message.bytes, Int(message.count), &digest, nil) != nil else {
+            guard HMAC(hashFunction, key.bytes, Int32(key.count), paddedMessage.bytes, Int(paddedMessage.count), &digest, nil) != nil else {
                 throw HMCryptoKitError.internalSecretError
             }
         #endif
