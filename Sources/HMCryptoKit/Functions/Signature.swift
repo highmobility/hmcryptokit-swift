@@ -86,7 +86,30 @@ public extension HMCryptoKit {
             let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
             var error: Unmanaged<CFError>?
 
-            let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), (signature.data as CFData), &error)
+            // DER encoding structure: 0x30 b1 0x02 b2 (vR) 0x02 b3 (vS) - http://crypto.stackexchange.com/a/1797/44274
+            // b1 - length of the remaining bytes
+            // b2 - length of vR
+            // b3 - length of vS
+
+            var vR = signature.bytes[0..<32].bytes
+            var vS = signature.bytes[32..<64].bytes
+
+            // Removes all the 0x00 bytes from the front for the SHORTEST possible representation
+            vR = vR.drop { $0 == 0x00 }.bytes
+            vS = vS.drop { $0 == 0x00 }.bytes
+
+            // If the first bit of the vector is 1, we'll need to prefix that vector with a 0x00
+            if vR[0] > 0b0111_1111 { vR.insert(0x00, at: 0) }
+            if vS[0] > 0b0111_1111 { vS.insert(0x00, at: 0) }
+
+            // The size of the vectors
+            let b2 = UInt8(truncatingIfNeeded: vR.count)
+            let b3 = UInt8(truncatingIfNeeded: vS.count)
+            let b1 = 4 + b2 + b3
+
+            // Combine the bytes
+            let signatureBytes: [UInt8] = [0x30, b1, 0x02, b2] + vR + [0x02, b3] + vS
+            let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), (signatureBytes.data as CFData), &error)
 
             guard error == nil else {
                 throw HMCryptoKitError.internalSecretError  // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
