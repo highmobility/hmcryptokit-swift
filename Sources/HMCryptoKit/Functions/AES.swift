@@ -9,53 +9,53 @@ import Foundation
 
 #if os(iOS) || os(tvOS) || os(watchOS)
     import CommonCrypto
+
+    public let kCipherAndKeySize = kCCKeySizeAES128
 #else
     import COpenSSL
+
+    public let kCipherAndKeySize = 128 / 8
 #endif
-
-
-public let kBlockCipherKeySize = 128
-
-public var kEncryptionBlockSize: Int {
-    return kBlockCipherKeySize / 8
-}
 
 
 public extension HMCryptoKit {
 
     static func encryptDecrypt<C: Collection>(message: C, iv: C, key: C) throws -> [UInt8] where C.Element == UInt8 {
-        guard key.count >= kEncryptionBlockSize,
-               iv.count == kEncryptionBlockSize else {
-                throw HMCryptoKitError.internalSecretError
+        guard iv.count == kCipherAndKeySize else {
+            throw HMCryptoKitError.invalidInputSize("iv")
+        }
+
+        guard key.count >= kCipherAndKeySize else {
+            throw HMCryptoKitError.invalidInputSize("key")
         }
 
         #if os(iOS) || os(tvOS) || os(watchOS)
-            var cipher = [UInt8](zeroFilledTo: kEncryptionBlockSize)
+            var cipher = [UInt8](zeroFilledTo: kCipherAndKeySize)
             let status = CCCrypt(CCOperation(kCCEncrypt), CCAlgorithm(kCCAlgorithmAES), CCOptions(kCCOptionECBMode),    // Configuration
-                                 key.bytes.prefix(kEncryptionBlockSize).bytes, kEncryptionBlockSize,                    // Key
+                                 key.bytes.prefix(kCipherAndKeySize).bytes, kCipherAndKeySize,                          // Key
                                  nil,                                                                                   // ECB doesn't use an IV
                                  iv.bytes, Int(iv.count),                                                               // IV as the "dataIn"
                                  &cipher, cipher.count,                                                                 // Cipher output
                                  nil)                                                                                   // Output length
 
             guard status == CCCryptorStatus(kCCSuccess) else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.commonCryptoError(status)
             }
 
             return message.enumerated().map {
-                $0.element ^ cipher.bytes[$0.offset % kEncryptionBlockSize]
+                $0.element ^ cipher.bytes[$0.offset % kCipherAndKeySize]
             }
         #else
-            let additionalCount = Int(message.count) % kEncryptionBlockSize
+            let additionalCount = Int(message.count) % kCipherAndKeySize
             var output = [UInt8](zeroFilledTo: Int(message.count))
             var additionalOutput = [UInt8](zeroFilledTo: additionalCount)
             var len: Int32 = 0
 
             guard let ctx = EVP_CIPHER_CTX_new(),
-                EVP_EncryptInit(ctx, EVP_aes_128_ctr(), key.bytes.prefix(kEncryptionBlockSize).bytes, iv.bytes) == 1,
+                EVP_EncryptInit(ctx, EVP_aes_128_ctr(), key.bytes.prefix(kCipherAndKeySize).bytes, iv.bytes) == 1,
                 EVP_EncryptUpdate(ctx, &output, &len, message.bytes, Int32(message.count)) == 1,
                 EVP_EncryptFinal(ctx, &additionalOutput, &len) == 1 else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             return output + additionalOutput

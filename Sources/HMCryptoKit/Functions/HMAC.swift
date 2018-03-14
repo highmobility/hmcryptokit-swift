@@ -18,7 +18,7 @@ public extension HMCryptoKit {
 
     static func hmac<C: Collection>(message: C, key: C) throws -> [UInt8] where C.Element == UInt8 {
         guard key.count == 32 else {
-            throw HMCryptoKitError.internalSecretError
+            throw HMCryptoKitError.invalidInputSize("key")
         }
 
         let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
@@ -28,15 +28,12 @@ public extension HMCryptoKit {
             CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), key.bytes, Int(key.count), paddedMessage.bytes, Int(paddedMessage.count), &digest)
 
             guard digest != [UInt8](zeroFilledTo: 32) else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.commonCryptoError(CCCryptorStatus(kCCUnspecifiedError))
             }
         #else
-            guard let hashFunction = EVP_sha256() else {
-                throw HMCryptoKitError.internalSecretError
-            }
-
-            guard HMAC(hashFunction, key.bytes, Int32(key.count), paddedMessage.bytes, Int(paddedMessage.count), &digest, nil) != nil else {
-                throw HMCryptoKitError.internalSecretError
+            guard let hashFunction = EVP_sha256(),
+                HMAC(hashFunction, key.bytes, Int32(key.count), paddedMessage.bytes, Int(paddedMessage.count), &digest, nil) != nil else {
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
         #endif
 

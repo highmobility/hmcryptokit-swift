@@ -25,11 +25,11 @@ extension HMCryptoKit {
 
         #if os(iOS) || os(tvOS) || os(watchOS)
             guard CC_SHA256(message.bytes, CC_LONG(message.count), &digest) != nil else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.commonCryptoError(CCCryptorStatus(kCCUnspecifiedError))
             }
         #else
             guard SHA256(message.bytes, Int(message.count), &digest) != nil else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
         #endif
 

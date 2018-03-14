@@ -28,13 +28,13 @@ public extension HMCryptoKit {
             case errSecSuccess:
                 guard let publicKey = publicKey,
                     let privateKey = privateKey else {
-                        throw HMCryptoKitError.internalSecretError
+                        throw HMCryptoKitError.osStatusError(errSecParam)
                 }
 
                 return (privateKey: privateKey, publicKey: publicKey)
 
             default:
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.osStatusError(status)
             }
         #else
             // Create the key
@@ -42,14 +42,14 @@ public extension HMCryptoKit {
                 EC_KEY_generate_key(key) == 1,
                 EC_KEY_check_key(key) == 1,
                 let privateBN = EC_KEY_get0_private_key(key) else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             let privateOffset = 32 - Int(ceil(Float(BN_num_bits(privateBN)) / 8.0))
             var privateKey = [UInt8](zeroFilledTo: 32)
 
             guard BN_bn2bin(privateBN, &privateKey + privateOffset) == 32 else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             return try keys(privateKey: privateKey)
@@ -59,7 +59,7 @@ public extension HMCryptoKit {
     static func keys(privateKey: ECKey) throws -> (privateKey: ECKey, publicKey: ECKey) {
         #if os(iOS) || os(tvOS) || os(watchOS)
             guard let publicKey = SecKeyCopyPublicKey(privateKey) else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.osStatusError(errSecInvalidKeyRef)
             }
 
             return (privateKey: privateKey, publicKey: publicKey)
@@ -67,7 +67,7 @@ public extension HMCryptoKit {
             // Handle public key values extraction
             guard let publicBN = BN_new(),
                 let bnCtx = BN_CTX_new() else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             let values = try extractGroupAndPoint(privateKey: privateKey)
@@ -75,7 +75,7 @@ public extension HMCryptoKit {
 
             guard EC_POINT_point2bn(values.group, values.point, POINT_CONVERSION_UNCOMPRESSED, publicBN, bnCtx) != nil,
                 BN_bn2bin(publicBN, &publicKeyZXY) == 65 else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             // POINT_CONVERSION_UNCOMPRESSED produces Z||X||Y, where Z == 0x04
@@ -87,7 +87,7 @@ public extension HMCryptoKit {
     static func publicKey<C: Collection>(binary: C) throws -> ECKey where C.Element == UInt8 {
         #if os(iOS) || os(tvOS) || os(watchOS)
             guard binary.count == 64 else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.invalidInputSize("binary")
             }
 
             let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPublic, kSecAttrKeySizeInBits : 256]
@@ -96,7 +96,7 @@ public extension HMCryptoKit {
 
             // Data format: 04 || X || Y
             guard let publicKey = SecKeyCreateWithData((bytes.data as CFData), attributes, &error) else {
-                throw HMCryptoKitError.internalSecretError // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
             return publicKey
@@ -107,17 +107,20 @@ public extension HMCryptoKit {
 
     static func privateKey<C: Collection>(privateKeyBinary: C, publicKeyBinary: C) throws -> ECKey where C.Element == UInt8 {
         #if os(iOS) || os(tvOS) || os(watchOS)
-            guard privateKeyBinary.count == 32,
-                publicKeyBinary.count == 64 else {
-                    throw HMCryptoKitError.internalSecretError
+            guard privateKeyBinary.count == 32 else {
+                throw HMCryptoKitError.invalidInputSize("privateKeyBinary")
+            }
+
+            guard publicKeyBinary.count == 64 else {
+                throw HMCryptoKitError.invalidInputSize("publicKeyBinary")
             }
 
             let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPrivate, kSecAttrKeySizeInBits : 256]
+            let keyBytes = [0x04] + publicKeyBinary.bytes + privateKeyBinary.bytes  // Format: 04 || X || Y || K
             var error: Unmanaged<CFError>?
 
-            // Data format: 04 || X || Y || K
-            guard let privateKey = SecKeyCreateWithData((([0x04] + publicKeyBinary.bytes + privateKeyBinary.bytes).data as CFData), attributes, &error) else {
-                throw HMCryptoKitError.internalSecretError //  HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+            guard let privateKey = SecKeyCreateWithData((keyBytes.data as CFData), attributes, &error) else {
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
             return privateKey
@@ -133,7 +136,7 @@ public extension HMCryptoKit {
             var error: Unmanaged<CFError>?
 
             guard let sharedKey = SecKeyCopyKeyExchangeResult(privateKey, .ecdhKeyExchangeStandardX963SHA256, publicKey, params, &error) else {
-                throw HMCryptoKitError.internalSecretError // throw the wrapped error: HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
             return (sharedKey as Data).bytes
@@ -145,24 +148,24 @@ public extension HMCryptoKit {
                 let privateBN = BN_bin2bn(privateKey, 32, nil),
                 let publicXBN = BN_bin2bn(publicKey, 32, nil),
                 let publicYBN = BN_bin2bn(publicKeyY, 32, nil) else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             guard EC_KEY_set_private_key(key, privateBN) == 1 else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             guard let group = EC_KEY_get0_group(key),
                 let point = EC_POINT_new(group),
                 let bnCtx = BN_CTX_new() else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             var sharedKey = [UInt8](zeroFilledTo: 32)
 
             guard EC_POINT_set_affine_coordinates_GFp(group, point, publicXBN, publicYBN, bnCtx) == 1,
                 ECDH_compute_key(&sharedKey, 32, point, key, nil) != -1 else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             return sharedKey
@@ -179,14 +182,14 @@ private extension HMCryptoKit {
             let privateBN = BN_bin2bn(privateKey.bytes, 32, nil),
             let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
             let point = EC_POINT_new(group) else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
         }
 
         guard EC_KEY_set_private_key(key, privateBN) == 1,
             EC_KEY_generate_key(key) == 1,
             EC_KEY_check_key(key) == 1,
             EC_POINT_mul(group, point, privateBN, nil, nil, nil) == 1 else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
         }
 
         return (group: group, point: point)

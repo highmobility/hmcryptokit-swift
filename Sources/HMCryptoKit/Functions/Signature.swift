@@ -24,7 +24,7 @@ public extension HMCryptoKit {
 
             // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
             guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), &error) as Data? else {
-                throw HMCryptoKitError.internalSecretError  // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
             /*
@@ -47,11 +47,14 @@ public extension HMCryptoKit {
             return vR + vS
         #else
             // Manage the key
-            guard privateKey.count == 32,
-                let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
+            guard privateKey.count == 32 else {
+                throw HMCryptoKitError.invalidInputSize("privateKey")
+            }
+
+            guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
                 let keyBN = BN_bin2bn(privateKey.bytes, 32, nil),
                 EC_KEY_set_private_key(key, keyBN) == 1 else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             // Pad the message to be a multiple of 64 and hash it
@@ -60,7 +63,7 @@ public extension HMCryptoKit {
 
             // Create the signature
             guard let sig = ECDSA_do_sign(digest, SHA256_DIGEST_LENGTH, key) else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             // Extract the signature
@@ -72,7 +75,7 @@ public extension HMCryptoKit {
             // Because the OpenSSL returns the SHORTEST possible format (meaning it cuts 0-bits from the vector's front)
             guard BN_bn2bin(sig.pointee.r, &rVector + rvOffset) != 0,
                 BN_bn2bin(sig.pointee.s, &sVector + svOffset) != 0 else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             return rVector + sVector
@@ -81,6 +84,10 @@ public extension HMCryptoKit {
 
 
     static func verify<C: Collection>(signature: C, message: C, publicKey: ECKey) throws -> Bool where C.Element == UInt8 {
+        guard signature.count == 64 else {
+            throw HMCryptoKitError.invalidInputSize("signature")
+        }
+
         #if os(iOS) || os(tvOS) || os(watchOS)
             // Pad the message to be a multiple of 64
             let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
@@ -112,14 +119,17 @@ public extension HMCryptoKit {
             let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), (signatureBytes.data as CFData), &error)
 
             guard error == nil else {
-                throw HMCryptoKitError.internalSecretError  // HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
             return verified
         #else
-            guard signature.count == 64,
-                publicKey.count == 64 else {
-                    throw HMCryptoKitError.internalSecretError
+            guard signature.count == 64 else {
+                throw HMCryptoKitError.invalidInputSize("signature")
+            }
+
+            guard publicKey.count == 64 else {
+                throw HMCryptoKitError.invalidInputSize("publicKey")
             }
 
             // Extract the vectors
@@ -127,7 +137,7 @@ public extension HMCryptoKit {
                 let sVector = BN_bin2bn(signature.bytes.suffix(32).bytes, 32, nil),
                 let xVector = BN_bin2bn(publicKey.bytes.prefix(32).bytes, 32, nil),
                 let yVector = BN_bin2bn(publicKey.bytes.suffix(32).bytes, 32, nil) else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             // Create the key and sig
@@ -135,7 +145,7 @@ public extension HMCryptoKit {
                 let sig = ECDSA_SIG_new(),
                 EC_KEY_set_public_key_affine_coordinates(key, xVector, yVector) == 1,
                 EC_KEY_check_key(key) == 1 else {
-                    throw HMCryptoKitError.internalSecretError
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
             // Pad the message to be a multiple of 64 and hash it

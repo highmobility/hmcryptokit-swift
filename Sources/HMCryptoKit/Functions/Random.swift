@@ -36,12 +36,11 @@ private extension HMCryptoKit {
 
         #if os(iOS) || os(tvOS) || os(watchOS)
             guard CCRandomGenerateBytes(&bytes, length) == kCCSuccess else {
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.systemError(errno)
             }
         #else
             guard RAND_bytes(&bytes, Int32(length)) == 1 else {
-                // TODO: Get the error from ERR_get_error
-                throw HMCryptoKitError.internalSecretError
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
         #endif
 
