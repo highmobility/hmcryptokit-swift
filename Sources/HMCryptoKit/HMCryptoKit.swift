@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HMUtilities
 
 
 #if os(iOS) || os(tvOS) || os(watchOS)

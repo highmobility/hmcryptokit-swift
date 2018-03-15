@@ -11,9 +11,10 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/IBM-Swift/CommonCrypto", from: "1.0.0"),
         .package(url: "https://github.com/vapor/copenssl", .branch("master")),
+        .package(url: "https://github.com/highmobility/hm-utilities-swift", .branch("master")),
     ],
     targets: [
-        .target(name: "HMCryptoKit", dependencies: []),
+        .target(name: "HMCryptoKit", dependencies: ["HMUtilities"]),
         .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
     ]
