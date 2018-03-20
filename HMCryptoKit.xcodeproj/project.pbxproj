@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		206ED7DD20610CC300D7761E /* HMCryptoKit iOS Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 206ED7DE20610CC300D7761E /* Build configuration list for PBXAggregateTarget "HMCryptoKit iOS Universal" */;
+			buildPhases = (
+				206ED7E120610CF300D7761E /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "HMCryptoKit iOS Universal";
+			productName = "HMCryptoKit iOS Universal";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		203C3A62205AB8EB00D68330 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203C3A61205AB8EB00D68330 /* String+Extensions.swift */; };
 		OBJ_55 /* HMCryptoKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* HMCryptoKitTests.swift */; };
@@ -331,6 +345,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					206ED7DD20610CC300D7761E = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = F42CFRE556;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "HMCryptoKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -348,9 +369,26 @@
 				"HMCryptoKit::HMCryptoKitCLT" /* HMCryptoKitCLT */,
 				"HMCryptoKit::HMCryptoKit" /* HMCryptoKit */,
 				"HMUtilities::HMUtilities" /* HMUtilities */,
+				206ED7DD20610CC300D7761E /* HMCryptoKit iOS Universal */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		206ED7E120610CF300D7761E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"${SRCROOT}/Scripts/UniversalBuildScript.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		OBJ_54 /* Sources */ = {
@@ -426,6 +464,28 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		206ED7DF20610CC300D7761E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F42CFRE556;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+			};
+			name = Debug;
+		};
+		206ED7E020610CC300D7761E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F42CFRE556;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+			};
+			name = Release;
+		};
 		OBJ_3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -665,6 +725,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		206ED7DE20610CC300D7761E /* Build configuration list for PBXAggregateTarget "HMCryptoKit iOS Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				206ED7DF20610CC300D7761E /* Debug */,
+				206ED7E020610CC300D7761E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		OBJ_2 /* Build configuration list for PBXProject "HMCryptoKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
