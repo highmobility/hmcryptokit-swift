@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "HMCryptoKit",
     products: [
-        .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
+        .library(name: "HMCryptoKit", type: .dynamic, targets: ["HMCryptoKit"]),
+        .library(name: "HMCryptoKit", type: .static, targets: ["HMCryptoKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/IBM-Swift/CommonCrypto", from: "1.0.0"),
