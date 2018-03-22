@@ -101,7 +101,7 @@ private extension CommandsManager {
 
     // MARK: Keys
 
-    var keysCommand: CommandInfo<Void, (private: [UInt8], public: [UInt8])> {
+    var keysCommand: CommandInfo<Void, (privateKey: [UInt8], publicKey: [UInt8])> {
         return CommandInfo(name: "keys",
                            parameters: [],
                            description: "Generate Private and Public keys",
