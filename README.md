@@ -4,7 +4,7 @@
 
 In addition, if using this as a *dependency* with Swift Package Manager, the suitable architecture is handled by Xcode.
   
-Lastly, there's a *command-line* tool for executing cryptographic commands.  
+Lastly, there's a *command-line* tool for executing cryptographic commands related to High-Mobility's system.  
 
 ## Framework Usage ##
 
