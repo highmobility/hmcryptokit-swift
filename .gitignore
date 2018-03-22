@@ -4,3 +4,4 @@
 xcuserdata/
 Package.resolved
 *.framework
+build/

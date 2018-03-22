@@ -22,6 +22,9 @@
 
 /* Begin PBXBuildFile section */
 		203C3A62205AB8EB00D68330 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203C3A61205AB8EB00D68330 /* String+Extensions.swift */; };
+		2069E34F2062AD7B00117697 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E34E2062AD7B00117697 /* Misc.swift */; };
+		2069E3512062B2A800117697 /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3502062B2A800117697 /* CommandsManager.swift */; };
+		2069E3532062B2B500117697 /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3522062B2B500117697 /* CommandInfo.swift */; };
 		OBJ_55 /* HMCryptoKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* HMCryptoKitTests.swift */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
 		OBJ_58 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
@@ -82,6 +85,9 @@
 
 /* Begin PBXFileReference section */
 		203C3A61205AB8EB00D68330 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		2069E34E2062AD7B00117697 /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
+		2069E3502062B2A800117697 /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
+		2069E3522062B2B500117697 /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
 		"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitCLT::Product" /* HMCryptoKitCLT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = HMCryptoKitCLT; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = HMCryptoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +170,9 @@
 		OBJ_22 /* HMCryptoKitCLT */ = {
 			isa = PBXGroup;
 			children = (
+				2069E3522062B2B500117697 /* CommandInfo.swift */,
+				2069E3502062B2A800117697 /* CommandsManager.swift */,
+				2069E34E2062AD7B00117697 /* Misc.swift */,
 				OBJ_24 /* main.swift */,
 			);
 			name = HMCryptoKitCLT;
@@ -403,7 +412,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				2069E3512062B2A800117697 /* CommandsManager.swift in Sources */,
 				OBJ_69 /* main.swift in Sources */,
+				2069E34F2062AD7B00117697 /* Misc.swift in Sources */,
+				2069E3532062B2B500117697 /* CommandInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

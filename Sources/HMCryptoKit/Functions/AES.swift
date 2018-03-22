@@ -1,4 +1,24 @@
 //
+// HMCryptoKit
+// Copyright (C) 2018 High-Mobility GmbH
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see http://www.gnu.org/licenses/.
+//
+// Please inquire about commercial licensing options at
+// licensing@high-mobility.com
+//
+//
 //  AES.swift
 //  HMCryptoKit
 //
@@ -62,7 +82,15 @@ public extension HMCryptoKit {
         #endif
     }
 
-    static func iv<C: Collection>(nonce: C, transactionNonce: C) -> [UInt8] where C.Element == UInt8 {
-        return nonce.bytes.prefix(7).bytes + transactionNonce
+    static func iv<C: Collection>(nonce: C, transactionNonce: C) throws -> [UInt8] where C.Element == UInt8 {
+        guard nonce.count >= 7 else {
+            throw HMCryptoKitError.invalidInputSize("nonce")
+        }
+
+        guard transactionNonce.count >= 9 else {
+            throw HMCryptoKitError.invalidInputSize("transactionNonce")
+        }
+
+        return nonce.bytes.prefix(7).bytes + transactionNonce.bytes.prefix(9).bytes
     }
 }
