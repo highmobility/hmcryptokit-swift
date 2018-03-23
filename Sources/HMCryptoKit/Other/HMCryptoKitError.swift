@@ -57,14 +57,14 @@ public enum HMCryptoKitError: Error {
     #if os(iOS) || os(watchOS) || os(tvOS)
         case commonCryptoError(CCCryptorStatus)
 
+        case osStatusError(OSStatus)
+
         case secKeyError(CFError)
     #else
         case openSSLError(String)
     #endif
 
     case invalidInputSize(String)
-
-    case osStatusError(OSStatus)
 
     case systemError(Int32)
 }
