@@ -32,13 +32,11 @@ import HMCryptoKitCommandsInfo
 struct Printer {
 
     static func printHelp() {
-        let longestName = CommandsManager.shared.commands.reduce(0) { max($0, $1.name.count) }
-        let commands = CommandsManager.shared.commands.map { $0.name + String(repeating: " ", count: (longestName - $0.name.count)) + " – " + $0.description }
         let text = """
           Enter HEX data after the command to execute it.
 
             Commands:
-                \(commands.joined(separator: "\n        "))
+                \(CommandsManager.shared.commandsDescriptions.joined(separator: "\n        "))
 
             Flags:
                 -h, --help  Print the help for a command

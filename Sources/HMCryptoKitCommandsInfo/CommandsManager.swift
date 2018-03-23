@@ -36,6 +36,13 @@ public struct CommandsManager {
 
     private(set) public var commands: [CommandInfoType] = []
 
+    public var commandsDescriptions: [String] {
+        let longestName = commands.reduce(0) { max($0, $1.name.count) }
+        let commandsInfos = commands.map { $0.name + String(repeating: " ", count: (longestName - $0.name.count)) + " – " + $0.description }
+
+        return commandsInfos
+    }
+
 
     // MARK: Init
 
