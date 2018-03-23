@@ -30,11 +30,11 @@ import HMCryptoKit
 import HMUtilities
 
 
-struct CommandsManager {
+public struct CommandsManager {
 
-    static let shared = CommandsManager()
+    public static let shared = CommandsManager()
 
-    var commands: [CommandInfoType] = []
+    private(set) public var commands: [CommandInfoType] = []
 
 
     // MARK: Init

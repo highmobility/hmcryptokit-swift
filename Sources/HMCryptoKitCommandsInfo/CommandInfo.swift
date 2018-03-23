@@ -28,29 +28,30 @@
 import Foundation
 
 
-enum SizeType {
+public enum SizeType {
     case int(Int)
     case nBytes
     case string(String)
 }
 
-enum ParsingError: Error {
+public enum ParsingError: Error {
     case error(String)
 }
 
 
 typealias BytesArrays = [[UInt8]]
-typealias InputPair = (name: String, size: SizeType)
+
+public typealias InputPair = (name: String, size: SizeType)
 
 
-protocol CommandInfoType {
+public protocol CommandInfoType {
 
     var description: String { get }
     var inputsDesc: [InputPair] { get }
     var name: String { get }
     var parameters: [String] { get }
 
-    func parse(input: [String]) throws -> String
+    func parse(input: [String], devOutput: Bool) throws -> String
 }
 
 
@@ -65,7 +66,7 @@ struct CommandInfo<InputType, OutputType>: CommandInfoType {
 
     // MARK: Methods
 
-    func parse(input: [String]) throws -> String {
+    func parse(input: [String], devOutput: Bool) throws -> String {
         // Check if the input count is correct
         let expectedCount = parameters.count
 

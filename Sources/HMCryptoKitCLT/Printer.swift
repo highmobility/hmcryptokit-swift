@@ -25,6 +25,9 @@
 //  Created by Mikk Rätsep on 21/03/2018.
 //
 
+import Foundation
+import HMCryptoKitCommandsInfo
+
 
 struct Printer {
 

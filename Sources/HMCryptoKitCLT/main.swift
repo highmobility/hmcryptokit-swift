@@ -27,10 +27,9 @@
 
 import Foundation
 import HMCryptoKit
+import HMCryptoKitCommandsInfo
 import HMUtilities
 
-
-var devOutput = false
 
 func main() {
     let arguments = CommandLine.arguments
@@ -53,13 +52,10 @@ func main() {
         return Printer.printHelp(command: command)
     }
 
-    if flags.contains("-d") || flags.contains("--dev") {
-        devOutput = true
-    }
-
     // Try to parse the command
     do {
-        let result = try command.parse(input: input)
+        let devOutput = flags.contains("-d") || flags.contains("--dev")
+        let result = try command.parse(input: input, devOutput: devOutput)
 
         print(result)
     }

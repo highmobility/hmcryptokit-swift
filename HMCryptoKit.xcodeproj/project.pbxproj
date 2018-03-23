@@ -22,9 +22,10 @@
 
 /* Begin PBXBuildFile section */
 		203C3A62205AB8EB00D68330 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203C3A61205AB8EB00D68330 /* String+Extensions.swift */; };
-		2069E34F2062AD7B00117697 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E34E2062AD7B00117697 /* Misc.swift */; };
-		2069E3512062B2A800117697 /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3502062B2A800117697 /* CommandsManager.swift */; };
-		2069E3532062B2B500117697 /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3522062B2B500117697 /* CommandInfo.swift */; };
+		2069E34F2062AD7B00117697 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E34E2062AD7B00117697 /* Printer.swift */; };
+		2095170E206540A2001AA315 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
+		20951714206540D1001AA315 /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3522062B2B500117697 /* CommandInfo.swift */; };
+		20951715206540D1001AA315 /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3502062B2A800117697 /* CommandsManager.swift */; };
 		OBJ_55 /* HMCryptoKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* HMCryptoKitTests.swift */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
 		OBJ_58 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
@@ -81,13 +82,28 @@
 			remoteGlobalIDString = "HMUtilities::HMUtilities";
 			remoteInfo = HMUtilities;
 		};
+		20951701206540A2001AA315 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "HMUtilities::HMUtilities";
+			remoteInfo = HMUtilities;
+		};
+		20951716206540DD001AA315 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 209516FF206540A2001AA315;
+			remoteInfo = HMCryptoKitCommandsInfo;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		203C3A61205AB8EB00D68330 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		2069E34E2062AD7B00117697 /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
+		2069E34E2062AD7B00117697 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		2069E3502062B2A800117697 /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
 		2069E3522062B2B500117697 /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
+		20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMCryptoKitCommandsInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitCLT::Product" /* HMCryptoKitCLT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = HMCryptoKitCLT; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = HMCryptoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +126,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2095170D206540A2001AA315 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				2095170E206540A2001AA315 /* HMUtilities.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		OBJ_56 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
@@ -146,6 +170,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		209516FE20654022001AA315 /* HMCryptoKitCommandsInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2069E3522062B2B500117697 /* CommandInfo.swift */,
+				2069E3502062B2A800117697 /* CommandsManager.swift */,
+			);
+			name = HMCryptoKitCommandsInfo;
+			path = Sources/HMCryptoKitCommandsInfo;
+			sourceTree = SOURCE_ROOT;
+		};
 		OBJ_12 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,9 +204,7 @@
 		OBJ_22 /* HMCryptoKitCLT */ = {
 			isa = PBXGroup;
 			children = (
-				2069E3522062B2B500117697 /* CommandInfo.swift */,
-				2069E3502062B2A800117697 /* CommandsManager.swift */,
-				2069E34E2062AD7B00117697 /* Misc.swift */,
+				2069E34E2062AD7B00117697 /* Printer.swift */,
 				OBJ_24 /* main.swift */,
 			);
 			name = HMCryptoKitCLT;
@@ -230,6 +262,7 @@
 				"HMCryptoKit::HMCryptoKitCLT::Product" /* HMCryptoKitCLT */,
 				"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */,
 				"HMUtilities::HMUtilities::Product" /* HMUtilities.framework */,
+				20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -249,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_8 /* HMCryptoKit */,
+				209516FE20654022001AA315 /* HMCryptoKitCommandsInfo */,
 				OBJ_22 /* HMCryptoKitCLT */,
 			);
 			name = Sources;
@@ -278,6 +312,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		209516FF206540A2001AA315 /* HMCryptoKitCommandsInfo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2095170F206540A2001AA315 /* Build configuration list for PBXNativeTarget "HMCryptoKitCommandsInfo" */;
+			buildPhases = (
+				20951702206540A2001AA315 /* Sources */,
+				2095170D206540A2001AA315 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				20951700206540A2001AA315 /* PBXTargetDependency */,
+			);
+			name = HMCryptoKitCommandsInfo;
+			productName = HMCryptoKit;
+			productReference = 20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		"HMCryptoKit::HMCryptoKit" /* HMCryptoKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_75 /* Build configuration list for PBXNativeTarget "HMCryptoKit" */;
@@ -305,6 +356,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				20951717206540DD001AA315 /* PBXTargetDependency */,
 				OBJ_73 /* PBXTargetDependency */,
 				OBJ_74 /* PBXTargetDependency */,
 			);
@@ -377,6 +429,7 @@
 				"HMCryptoKit::HMCryptoKitTests" /* HMCryptoKitTests */,
 				"HMCryptoKit::HMCryptoKitCLT" /* HMCryptoKitCLT */,
 				"HMCryptoKit::HMCryptoKit" /* HMCryptoKit */,
+				209516FF206540A2001AA315 /* HMCryptoKitCommandsInfo */,
 				"HMUtilities::HMUtilities" /* HMUtilities */,
 				206ED7DD20610CC300D7761E /* HMCryptoKit iOS Universal */,
 			);
@@ -400,6 +453,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		20951702206540A2001AA315 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				20951714206540D1001AA315 /* CommandInfo.swift in Sources */,
+				20951715206540D1001AA315 /* CommandsManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		OBJ_54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
@@ -412,10 +474,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				2069E3512062B2A800117697 /* CommandsManager.swift in Sources */,
 				OBJ_69 /* main.swift in Sources */,
-				2069E34F2062AD7B00117697 /* Misc.swift in Sources */,
-				2069E3532062B2B500117697 /* CommandInfo.swift in Sources */,
+				2069E34F2062AD7B00117697 /* Printer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +508,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		20951700206540A2001AA315 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "HMUtilities::HMUtilities" /* HMUtilities */;
+			targetProxy = 20951701206540A2001AA315 /* PBXContainerItemProxy */;
+		};
+		20951717206540DD001AA315 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 209516FF206540A2001AA315 /* HMCryptoKitCommandsInfo */;
+			targetProxy = 20951716206540DD001AA315 /* PBXContainerItemProxy */;
+		};
 		OBJ_59 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "HMCryptoKit::HMCryptoKit" /* HMCryptoKit */;
@@ -495,6 +565,42 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+			};
+			name = Release;
+		};
+		20951710206540A2001AA315 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitCommandsInfo_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				PRODUCT_BUNDLE_IDENTIFIER = HMCryptoKitCommandsInfo;
+				PRODUCT_MODULE_NAME = HMCryptoKitCommandsInfo;
+				PRODUCT_NAME = HMCryptoKitCommandsInfo;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = HMCryptoKitCommandsInfo;
+			};
+			name = Debug;
+		};
+		20951711206540A2001AA315 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitCommandsInfo_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				PRODUCT_BUNDLE_IDENTIFIER = HMCryptoKitCommandsInfo;
+				PRODUCT_MODULE_NAME = HMCryptoKitCommandsInfo;
+				PRODUCT_NAME = HMCryptoKitCommandsInfo;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = HMCryptoKitCommandsInfo;
 			};
 			name = Release;
 		};
@@ -744,6 +850,15 @@
 			buildConfigurations = (
 				206ED7DF20610CC300D7761E /* Debug */,
 				206ED7E020610CC300D7761E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2095170F206540A2001AA315 /* Build configuration list for PBXNativeTarget "HMCryptoKitCommandsInfo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20951710206540A2001AA315 /* Debug */,
+				20951711206540A2001AA315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

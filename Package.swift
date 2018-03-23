@@ -8,6 +8,7 @@ let package = Package(
     products: [
         .library(name: "HMCryptoKit", type: .dynamic, targets: ["HMCryptoKit"]),
         .library(name: "HMCryptoKit", type: .static, targets: ["HMCryptoKit"]),
+        .library(name: "HMCryptoKitCommandsInfo", targets: ["HMCryptoKitCLT"]),
     ],
     dependencies: [
         .package(url: "https://github.com/IBM-Swift/CommonCrypto", from: "1.0.0"),
@@ -16,7 +17,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "HMCryptoKit", dependencies: ["HMUtilities"]),
-        .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit"]),
+        .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit", "HMCrHMCryptoKitCommandsInfo"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
     ]
 )
