@@ -282,8 +282,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_8 /* HMCryptoKit */,
-				209516FE20654022001AA315 /* HMCryptoKitCommandsInfo */,
 				OBJ_22 /* HMCryptoKitCLT */,
+				209516FE20654022001AA315 /* HMCryptoKitCommandsInfo */,
 			);
 			name = Sources;
 			sourceTree = SOURCE_ROOT;

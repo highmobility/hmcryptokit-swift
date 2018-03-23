@@ -17,7 +17,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "HMCryptoKit", dependencies: ["HMUtilities"]),
-        .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit", "HMCrHMCryptoKitCommandsInfo"]),
+        .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit", "HMCryptoKitCommandsInfo"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
     ]
 )
