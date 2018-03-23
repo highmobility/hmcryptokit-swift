@@ -6,9 +6,8 @@ import PackageDescription
 let package = Package(
     name: "HMCryptoKit",
     products: [
-        .library(name: "HMCryptoKit", type: .dynamic, targets: ["HMCryptoKit"]),
-        .library(name: "HMCryptoKit", type: .static, targets: ["HMCryptoKit"]),
-        .library(name: "HMCryptoKitCommandsInfo", targets: ["HMCryptoKitCLT"]),
+        .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
+        .library(name: "HMCryptoKitCommandsInfo", targets: ["HMCryptoKitCommandsInfo"]),
     ],
     dependencies: [
         .package(url: "https://github.com/IBM-Swift/CommonCrypto", from: "1.0.0"),
@@ -17,6 +16,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "HMCryptoKit", dependencies: ["HMUtilities"]),
+        .target(name: "HMCryptoKitCommandsInfo", dependencies: ["HMCryptoKit"]),
         .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit", "HMCryptoKitCommandsInfo"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
     ]
