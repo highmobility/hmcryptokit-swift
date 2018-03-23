@@ -47,9 +47,6 @@ public extension HMCryptoKit {
     static func serial(_ length: Int = kSerialNumberSize) throws -> [UInt8] {
         return try randomBytes(length)
     }
-}
-
-private extension HMCryptoKit {
 
     static func randomBytes(_ length: Int) throws -> [UInt8] {
         var bytes = [UInt8](zeroFilledTo: length)
