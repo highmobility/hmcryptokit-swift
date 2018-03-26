@@ -36,6 +36,18 @@ import Foundation
 
 public extension HMCryptoKit {
 
+    /// Generate a signature for a message.
+    ///
+    /// The *elliptic curve DSA (digital signature algorithm) X9.62 SHA256* is used for the generation.
+    ///
+    /// - Parameters:
+    ///   - message: The message to generate a signature for.
+    ///   - privateKey: The private key to use for signature generation.
+    /// - Returns: The signature's 64 bytes.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso:
+    ///     - `ECKey`
+    ///     - `verify(signature:message:publicKey:)`
     static func signature<C: Collection>(message: C, privateKey: ECKey) throws -> [UInt8] where C.Element == UInt8 {
         // Pad the message to be a multiple of 64
         let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
@@ -102,6 +114,19 @@ public extension HMCryptoKit {
     }
 
 
+    /// Verifies the signature for a message with the public key.
+    ///
+    /// The *elliptic curve DSA X9.62 SHA256* is used for the verification.
+    ///
+    /// - Parameters:
+    ///   - signature: The signature for the message, must be 64 bytes.
+    ///   - message: The message associated with the signature.
+    ///   - publicKey: The public key of the keypair used to create the signature.
+    /// - Returns: Bool value if the verification succeeded.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso:
+    ///     - `ECKey`
+    ///     - `signature(message:privateKey:)`
     static func verify<C: Collection>(signature: C, message: C, publicKey: ECKey) throws -> Bool where C.Element == UInt8 {
         guard signature.count == 64 else {
             throw HMCryptoKitError.invalidInputSize("signature")

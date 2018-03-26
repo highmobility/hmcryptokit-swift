@@ -40,10 +40,21 @@ public let kSerialNumberSize    = 9
 
 public extension HMCryptoKit {
 
+    /// Generate a nonce (number only once).
+    ///
+    /// - Parameter length: The length of the desired nonce, defaults to 9 bytes.
+    /// - Returns: The nonce bytes.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso: `randomBytes(_:)`
     static func nonce(_ length: Int = kNonceSize) throws -> [UInt8] {
         return try randomBytes(length)
     }
 
+    /// Generate random bytes array of input length.
+    ///
+    /// - Parameter length: The length of the array.
+    /// - Returns: The random bytes.
+    /// - Throws: `HMCryptoKitError`
     static func randomBytes(_ length: Int) throws -> [UInt8] {
         var bytes = [UInt8](zeroFilledTo: length)
 
@@ -60,6 +71,12 @@ public extension HMCryptoKit {
         return bytes
     }
 
+    /// Generate a serial number.
+    ///
+    /// - Parameter length: The length of the desired serial number, defaults to 9 bytes.
+    /// - Returns: The serial number bytes.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso: `randomBytes(_:)`
     static func serial(_ length: Int = kSerialNumberSize) throws -> [UInt8] {
         return try randomBytes(length)
     }

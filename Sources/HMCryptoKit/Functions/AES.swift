@@ -40,6 +40,15 @@ import Foundation
 
 public extension HMCryptoKit {
 
+    /// En-/decrypt the message using an injection vector and the key.
+    ///
+    /// - Parameters:
+    ///   - message: A message to be en-/decrypted.
+    ///   - iv: Injection vector, pseudounique 16 bytes for seeding the encryption cipher.
+    ///   - key: Key to use for en-/decryption, must be at least 16 bytes.
+    /// - Returns: The ciphertext (en-/decrypted message) as bytes, same length as the message.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso: `iv(nonce:transactionNonce:)`
     static func encryptDecrypt<C: Collection>(message: C, iv: C, key: C) throws -> [UInt8] where C.Element == UInt8 {
         guard iv.count == kCipherAndKeySize else {
             throw HMCryptoKitError.invalidInputSize("iv")
@@ -82,6 +91,14 @@ public extension HMCryptoKit {
         #endif
     }
 
+    /// Combine an injection vector.
+    ///
+    /// - Parameters:
+    ///   - nonce: Pseudounique bytes (number only once), at least 7 bytes.
+    ///   - transactionNonce: Pseudounique bytes (number only once), at least 9 bytes.
+    /// - Returns: The 16 bytes of an injection vector.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso: `encryptDecrypt(message:iv:key:)`
     static func iv<C: Collection>(nonce: C, transactionNonce: C) throws -> [UInt8] where C.Element == UInt8 {
         guard nonce.count >= 7 else {
             throw HMCryptoKitError.invalidInputSize("nonce")

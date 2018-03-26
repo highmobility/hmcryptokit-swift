@@ -36,6 +36,16 @@ import Foundation
 
 public extension HMCryptoKit {
 
+    /// Generate an HMAC (hashed message authentication code) for the message.
+    ///
+    /// The HMAC is generated with SHA256.
+    ///
+    /// - Parameters:
+    ///   - message: Message to generated the code for.
+    ///   - key: Key to use for generation, must be 32 bytes.
+    /// - Returns: The 32 bytes of the HMAC.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso: `verify(hmac:message:key:)`
     static func hmac<C: Collection>(message: C, key: C) throws -> [UInt8] where C.Element == UInt8 {
         guard key.count == 32 else {
             throw HMCryptoKitError.invalidInputSize("key")
@@ -60,6 +70,15 @@ public extension HMCryptoKit {
         return digest
     }
 
+    /// Verifies an HMAC for a message with the key.
+    ///
+    /// - Parameters:
+    ///   - hmac: The HMAC to verify, must be 32 bytes.
+    ///   - message: The message the HMAC was for.
+    ///   - key: The key used to generate the HMAC, must be 32 bytes.
+    /// - Returns: Bool value if the verification succeeded.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso: `hmac(message:key:)`
     static func verify<C: Collection>(hmac: C, message: C, key: C) throws -> Bool where C.Element == UInt8 {
         return try self.hmac(message: message, key: key) == hmac.bytes
     }

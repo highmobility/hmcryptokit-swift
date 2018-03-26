@@ -33,8 +33,10 @@ import HMUtilities
 #if os(iOS) || os(tvOS) || os(watchOS)
     import Security
 
+    /// The key type
     public typealias ECKey = SecKey
 #else
+    /// The key type
     public typealias ECKey = [UInt8]
 #endif
 

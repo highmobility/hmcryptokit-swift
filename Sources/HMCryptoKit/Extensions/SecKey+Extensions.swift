@@ -34,10 +34,7 @@ import Foundation
 
     public extension SecKey {
 
-        var hex: String {
-            return bytes.hex
-        }
-
+        /// The bytes of the key.
         var bytes: [UInt8] {
             // Check that the key suits us
             guard let attributes = SecKeyCopyAttributes(self) as NSDictionary?,
@@ -60,12 +57,19 @@ import Foundation
             }
         }
 
+        /// The number of bytes of the key.
         var count: Int {
             return bytes.count
         }
 
+        /// Data of the key.
         var data: Data {
             return bytes.data
+        }
+
+        /// The hex string representing the bytes of the key.
+        var hex: String {
+            return bytes.hex
         }
     }
 #endif
