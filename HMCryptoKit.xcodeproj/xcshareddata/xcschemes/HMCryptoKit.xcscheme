@@ -29,7 +29,26 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "HMCryptoKit::HMCryptoKitTests"
+               BuildableName = "HMCryptoKitTests.xctest"
+               BlueprintName = "HMCryptoKitTests"
+               ReferencedContainer = "container:HMCryptoKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "HMCryptoKit::HMCryptoKit"
+            BuildableName = "HMCryptoKit.framework"
+            BlueprintName = "HMCryptoKit"
+            ReferencedContainer = "container:HMCryptoKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

@@ -37,9 +37,10 @@ import Foundation
 public extension HMCryptoKit {
 
     static func signature<C: Collection>(message: C, privateKey: ECKey) throws -> [UInt8] where C.Element == UInt8 {
+        // Pad the message to be a multiple of 64
+        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
+
         #if os(iOS) || os(tvOS) || os(watchOS)
-            // Pad the message to be a multiple of 64
-            let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
             var error: Unmanaged<CFError>?
 
             // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
@@ -77,8 +78,6 @@ public extension HMCryptoKit {
                     throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
-            // Pad the message to be a multiple of 64 and hash it
-            let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
             let digest = try sha256(message: paddedMessage)
 
             // Create the signature
@@ -108,9 +107,10 @@ public extension HMCryptoKit {
             throw HMCryptoKitError.invalidInputSize("signature")
         }
 
+        // Pad the message to be a multiple of 64
+        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
+
         #if os(iOS) || os(tvOS) || os(watchOS)
-            // Pad the message to be a multiple of 64
-            let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
             var error: Unmanaged<CFError>?
 
             // DER encoding structure: 0x30 b1 0x02 b2 (vR) 0x02 b3 (vS) - http://crypto.stackexchange.com/a/1797/44274
@@ -168,8 +168,6 @@ public extension HMCryptoKit {
                     throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
-            // Pad the message to be a multiple of 64 and hash it
-            let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
             let digest = try sha256(message: paddedMessage)
 
             sig.pointee.r = rVector

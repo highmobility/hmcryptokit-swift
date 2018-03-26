@@ -105,11 +105,11 @@ public extension HMCryptoKit {
 
 
     static func publicKey<C: Collection>(binary: C) throws -> ECKey where C.Element == UInt8 {
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            guard binary.count == 64 else {
-                throw HMCryptoKitError.invalidInputSize("binary")
-            }
+        guard binary.count == 64 else {
+            throw HMCryptoKitError.invalidInputSize("binary")
+        }
 
+        #if os(iOS) || os(tvOS) || os(watchOS)
             let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPublic, kSecAttrKeySizeInBits : 256]
             let bytes = [0x04] + binary.bytes
             var error: Unmanaged<CFError>?
@@ -126,11 +126,11 @@ public extension HMCryptoKit {
     }
 
     static func privateKey<C: Collection>(privateKeyBinary: C, publicKeyBinary: C) throws -> ECKey where C.Element == UInt8 {
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            guard privateKeyBinary.count == 32 else {
-                throw HMCryptoKitError.invalidInputSize("privateKeyBinary")
-            }
+        guard privateKeyBinary.count == 32 else {
+            throw HMCryptoKitError.invalidInputSize("privateKeyBinary")
+        }
 
+        #if os(iOS) || os(tvOS) || os(watchOS)
             guard publicKeyBinary.count == 64 else {
                 throw HMCryptoKitError.invalidInputSize("publicKeyBinary")
             }
