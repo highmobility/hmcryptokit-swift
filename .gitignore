@@ -4,4 +4,5 @@
 xcuserdata/
 Package.resolved
 *.framework
+!CommonCrypto.framework
 build/
