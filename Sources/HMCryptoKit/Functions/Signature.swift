@@ -50,7 +50,8 @@ public extension HMCryptoKit {
     ///     - `verify(signature:message:publicKey:)`
     static func signature<C: Collection>(message: C, privateKey: ECKey) throws -> [UInt8] where C.Element == UInt8 {
         // Pad the message to be a multiple of 64
-        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
+        let modulo = message.count % 64
+        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
 
         #if os(iOS) || os(tvOS) || os(watchOS)
             var error: Unmanaged<CFError>?
@@ -133,7 +134,8 @@ public extension HMCryptoKit {
         }
 
         // Pad the message to be a multiple of 64
-        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: 64 - (Int(message.count) % 64))
+        let modulo = message.count % 64
+        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
 
         #if os(iOS) || os(tvOS) || os(watchOS)
             var error: Unmanaged<CFError>?

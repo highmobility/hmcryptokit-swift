@@ -22,7 +22,7 @@
 #  UniversalBuildScript.sh
 #
 #  Created by Mikk Rätsep on 16/03/2018.
-#  Copyright © 2016 High-Mobility. All rights reserved.
+#  Copyright © 2018 High-Mobility. All rights reserved.
 
 
 ######################
@@ -118,6 +118,15 @@ fi
 if [ -d "${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/" ]; then
 cp -f -R "${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/" "${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/"
 fi
+
+
+######################
+# "Fix" the CFBundleVersion being missing
+######################
+
+FWRK_VER=$(defaults read ${FRAMEWORK}/Info.plist CFBundleShortVersionString)
+#defaults write /Users/test/Desktop/myplist MyKey MyValue
+defaults write "${FRAMEWORK}/Info.plist" CFBundleVersion "${FWRK_VER}"
 
 
 # Copy the Universal to the root dir
