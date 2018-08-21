@@ -592,6 +592,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -603,6 +604,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -619,7 +621,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.high-mobility.hmcryptokit-commands-info";
 				PRODUCT_MODULE_NAME = HMCryptoKitCommandsInfo;
 				PRODUCT_NAME = HMCryptoKitCommandsInfo;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKitCommandsInfo;
 			};
 			name = Debug;
@@ -637,7 +639,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.high-mobility.hmcryptokit-commands-info";
 				PRODUCT_MODULE_NAME = HMCryptoKitCommandsInfo;
 				PRODUCT_NAME = HMCryptoKitCommandsInfo;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKitCommandsInfo;
 			};
 			name = Release;
@@ -803,7 +805,7 @@
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKitCLT;
 			};
 			name = Debug;
@@ -820,7 +822,7 @@
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKitCLT;
 			};
 			name = Release;
