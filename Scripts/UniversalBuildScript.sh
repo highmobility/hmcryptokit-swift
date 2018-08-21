@@ -125,9 +125,13 @@ fi
 ######################
 
 FWRK_VER=$(defaults read ${FRAMEWORK}/Info.plist CFBundleShortVersionString)
-#defaults write /Users/test/Desktop/myplist MyKey MyValue
 defaults write "${FRAMEWORK}/Info.plist" CFBundleVersion "${FWRK_VER}"
 
+
+
+######################
+# Cleanup
+######################
 
 # Copy the Universal to the root dir
 cp -f -R "${FRAMEWORK}" "${SRCROOT}"
