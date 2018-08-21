@@ -432,6 +432,15 @@
 						DevelopmentTeam = F42CFRE556;
 						ProvisioningStyle = Automatic;
 					};
+					"HMCryptoKit::HMCryptoKit" = {
+						LastSwiftMigration = 1000;
+					};
+					"HMCryptoKit::HMCryptoKitTests" = {
+						LastSwiftMigration = 1000;
+					};
+					"HMUtilities::HMUtilities" = {
+						LastSwiftMigration = 1000;
+					};
 				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "HMCryptoKit" */;
@@ -762,7 +771,7 @@
 				);
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitTests_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKitTests;
 			};
 			name = Debug;
@@ -777,7 +786,7 @@
 				);
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitTests_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKitTests;
 			};
 			name = Release;
@@ -829,7 +838,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.high-mobility.hmcryptokit";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKit;
 			};
 			name = Debug;
@@ -847,7 +856,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.high-mobility.hmcryptokit";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMCryptoKit;
 			};
 			name = Release;
@@ -869,7 +878,7 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMUtilities;
 			};
 			name = Debug;
@@ -891,7 +900,7 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMUtilities;
 			};
 			name = Release;

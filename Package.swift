@@ -10,7 +10,6 @@ let package = Package(
         .library(name: "HMCryptoKitCommandsInfo", targets: ["HMCryptoKitCommandsInfo"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/IBM-Swift/CommonCrypto", from: "1.0.0"),
         .package(url: "https://github.com/vapor/copenssl", .branch("master")),
         .package(url: "https://github.com/highmobility/hm-utilities-swift", .branch("master")),
     ],
