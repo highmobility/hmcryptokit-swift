@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		203C3A62205AB8EB00D68330 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203C3A61205AB8EB00D68330 /* String+Extensions.swift */; };
 		204200222068DFF3006367D5 /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200212068DFF3006367D5 /* RandomTests.swift */; };
 		204200242068E228006367D5 /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200232068E228006367D5 /* KeysTests.swift */; };
 		204200262068EEAD006367D5 /* AESTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200252068EEAD006367D5 /* AESTests.swift */; };
@@ -31,6 +30,14 @@
 		2095170E206540A2001AA315 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		20951714206540D1001AA315 /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3522062B2B500117697 /* CommandInfo.swift */; };
 		20951715206540D1001AA315 /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3502062B2A800117697 /* CommandsManager.swift */; };
+		20B7C950215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */; };
+		20B7C951215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */; };
+		20B7C952215CCD4E00C9C9A7 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */; };
+		20B7C953215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94B215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift */; };
+		20B7C954215CCD4E00C9C9A7 /* DebugTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94C215CCD4E00C9C9A7 /* DebugTree.swift */; };
+		20B7C955215CCD4E00C9C9A7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */; };
+		20B7C956215CCD4E00C9C9A7 /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */; };
+		20B7C957215CCD4E00C9C9A7 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
 		OBJ_58 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		OBJ_69 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* main.swift */; };
@@ -47,7 +54,6 @@
 		OBJ_87 /* HMCryptoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* HMCryptoKit.swift */; };
 		OBJ_88 /* HMCryptoKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* HMCryptoKitError.swift */; };
 		OBJ_90 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
-		OBJ_96 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* UInt8Collection+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +116,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		203C3A61205AB8EB00D68330 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		204200212068DFF3006367D5 /* RandomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
 		204200232068E228006367D5 /* KeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
 		204200252068EEAD006367D5 /* AESTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESTests.swift; sourceTree = "<group>"; };
@@ -120,6 +125,14 @@
 		2069E3502062B2A800117697 /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
 		2069E3522062B2B500117697 /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
 		20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMCryptoKitCommandsInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignedInteger+Extensions.swift"; sourceTree = "<group>"; };
+		20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8Collection+Extensions.swift"; sourceTree = "<group>"; };
+		20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
+		20B7C94B215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FixedWidthInteger+Extensions.swift"; sourceTree = "<group>"; };
+		20B7C94C215CCD4E00C9C9A7 /* DebugTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugTree.swift; sourceTree = "<group>"; };
+		20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Extensions.swift"; sourceTree = "<group>"; };
+		20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitCLT::Product" /* HMCryptoKitCLT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = HMCryptoKitCLT; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = HMCryptoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,8 +148,7 @@
 		OBJ_19 /* HMCryptoKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMCryptoKit.swift; sourceTree = "<group>"; };
 		OBJ_21 /* HMCryptoKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMCryptoKitError.swift; sourceTree = "<group>"; };
 		OBJ_24 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		OBJ_31 /* UInt8Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8Collection+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_32 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "../hm-auto-api-swift/.build/checkouts/hm-utilities-swift-8476438079168975013/Package.swift"; sourceTree = "<group>"; };
+		OBJ_32 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ".build/checkouts/hm-utilities-swift--3602027435045027992/Package.swift"; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -267,11 +279,17 @@
 		OBJ_30 /* HMUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				203C3A61205AB8EB00D68330 /* String+Extensions.swift */,
-				OBJ_31 /* UInt8Collection+Extensions.swift */,
+				20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */,
+				20B7C94C215CCD4E00C9C9A7 /* DebugTree.swift */,
+				20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */,
+				20B7C94B215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift */,
+				20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */,
+				20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */,
+				20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */,
+				20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */,
 			);
 			name = HMUtilities;
-			path = "../hm-auto-api-swift/.build/checkouts/hm-utilities-swift-8476438079168975013/Sources/HMUtilities";
+			path = ".build/checkouts/hm-utilities-swift--3602027435045027992/Sources/HMUtilities";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_33 /* Products */ = {
@@ -533,8 +551,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				203C3A62205AB8EB00D68330 /* String+Extensions.swift in Sources */,
-				OBJ_96 /* UInt8Collection+Extensions.swift in Sources */,
+				20B7C957215CCD4E00C9C9A7 /* Double+Extensions.swift in Sources */,
+				20B7C951215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift in Sources */,
+				20B7C952215CCD4E00C9C9A7 /* Float+Extensions.swift in Sources */,
+				20B7C956215CCD4E00C9C9A7 /* Bool+Extensions.swift in Sources */,
+				20B7C954215CCD4E00C9C9A7 /* DebugTree.swift in Sources */,
+				20B7C953215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift in Sources */,
+				20B7C955215CCD4E00C9C9A7 /* String+Extensions.swift in Sources */,
+				20B7C950215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -866,6 +890,8 @@
 		OBJ_93 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -880,6 +906,7 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGET_NAME = HMUtilities;
 			};
@@ -888,6 +915,8 @@
 		OBJ_94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
