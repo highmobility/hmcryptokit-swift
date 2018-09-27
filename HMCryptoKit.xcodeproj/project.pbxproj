@@ -136,7 +136,7 @@
 		OBJ_21 /* HMCryptoKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMCryptoKitError.swift; sourceTree = "<group>"; };
 		OBJ_24 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_31 /* UInt8Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8Collection+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_32 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/mikk/Desktop/Workspace/Source/hm-crypto-kit-swift/.build/checkouts/hm-utilities-swift--9129260329164589395/Package.swift"; sourceTree = "<group>"; };
+		OBJ_32 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "../hm-auto-api-swift/.build/checkouts/hm-utilities-swift-8476438079168975013/Package.swift"; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -271,7 +271,7 @@
 				OBJ_31 /* UInt8Collection+Extensions.swift */,
 			);
 			name = HMUtilities;
-			path = ".build/checkouts/hm-utilities-swift--9129260329164589395/Sources/HMUtilities";
+			path = "../hm-auto-api-swift/.build/checkouts/hm-utilities-swift-8476438079168975013/Sources/HMUtilities";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_33 /* Products */ = {
