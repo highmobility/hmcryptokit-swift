@@ -46,9 +46,9 @@ public extension HMCryptoKit {
     /// - Returns: The signature's 64 bytes.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso:
-    ///     - `ECKey`
+    ///     - `HMECKey`
     ///     - `verify(signature:message:publicKey:)`
-    static func signature<C: Collection>(message: C, privateKey: ECKey) throws -> [UInt8] where C.Element == UInt8 {
+    static func signature<C: Collection>(message: C, privateKey: HMECKey) throws -> [UInt8] where C.Element == UInt8 {
         // Pad the message to be a multiple of 64
         let modulo = message.count % 64
         let paddedMessage = message.bytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
@@ -126,9 +126,9 @@ public extension HMCryptoKit {
     /// - Returns: Bool value if the verification succeeded.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso:
-    ///     - `ECKey`
+    ///     - `HMECKey`
     ///     - `signature(message:privateKey:)`
-    static func verify<C: Collection>(signature: C, message: C, publicKey: ECKey) throws -> Bool where C.Element == UInt8 {
+    static func verify<C: Collection>(signature: C, message: C, publicKey: HMECKey) throws -> Bool where C.Element == UInt8 {
         guard signature.count == 64 else {
             throw HMCryptoKitError.invalidInputSize("signature")
         }

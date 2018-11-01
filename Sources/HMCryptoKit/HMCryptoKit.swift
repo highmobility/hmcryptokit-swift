@@ -34,10 +34,10 @@ import HMUtilities
     import Security
 
     /// The key type
-    public typealias ECKey = SecKey
+    public typealias HMECKey = SecKey
 #else
     /// The key type
-    public typealias ECKey = [UInt8]
+    public typealias HMECKey = [UInt8]
 #endif
 
 

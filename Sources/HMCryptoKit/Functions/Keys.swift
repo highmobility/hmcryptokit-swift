@@ -43,13 +43,13 @@ public extension HMCryptoKit {
     /// - Returns: The tuple containing a private key, and it's public key.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso:
-    ///     - `ECKey`
+    ///     - `HMECKey`
     ///     - `keys(privateKey:)`
-    static func keys() throws -> (privateKey: ECKey, publicKey: ECKey) {
+    static func keys() throws -> (privateKey: HMECKey, publicKey: HMECKey) {
         #if os(iOS) || os(tvOS) || os(watchOS)
             let params: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeySizeInBits : 256]
-            var publicKey: ECKey?
-            var privateKey: ECKey?
+            var publicKey: HMECKey?
+            var privateKey: HMECKey?
 
             let status = SecKeyGeneratePair(params, &publicKey, &privateKey)
 
@@ -89,13 +89,13 @@ public extension HMCryptoKit {
     ///
     /// The keypair is of an *elliptic curve p256* type.
     ///
-    /// - Parameter privateKey: The `ECKey` type of private key.
+    /// - Parameter privateKey: The `HMECKey` type of private key.
     /// - Returns: The tuple containing a private key, and it's public key.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso:
-    ///     - `ECKey`
+    ///     - `HMECKey`
     ///     - `keys()`
-    static func keys(privateKey: ECKey) throws -> (privateKey: ECKey, publicKey: ECKey) {
+    static func keys(privateKey: HMECKey) throws -> (privateKey: HMECKey, publicKey: HMECKey) {
         #if os(iOS) || os(tvOS) || os(watchOS)
             guard let publicKey = SecKeyCopyPublicKey(privateKey) else {
                 throw HMCryptoKitError.osStatusError(errSecInvalidKeyRef)
@@ -126,13 +126,13 @@ public extension HMCryptoKit {
         #endif
     }
 
-    /// Convert a binary representaion of a public key to `ECKey` type.
+    /// Convert a binary representaion of a public key to `HMECKey` type.
     ///
     /// - Parameter binary: The public key binary, must be 64 bytes.
     /// - Returns: The converted public key.
     /// - Throws: `HMCryptoKitError`
-    /// - SeeAlso: `ECKey`
-    static func publicKey<C: Collection>(binary: C) throws -> ECKey where C.Element == UInt8 {
+    /// - SeeAlso: `HMECKey`
+    static func publicKey<C: Collection>(binary: C) throws -> HMECKey where C.Element == UInt8 {
         guard binary.count == 64 else {
             throw HMCryptoKitError.invalidInputSize("binary")
         }
@@ -154,15 +154,15 @@ public extension HMCryptoKit {
     }
 
     /// Convert a binary representation of a private key, with it's public key,
-    /// to an `ECKey` type.
+    /// to an `HMECKey` type.
     ///
     /// - Parameters:
     ///   - privateKeyBinary: The private key binary, must be 32 bytes.
     ///   - publicKeyBinary: The public key binary, must be 64 bytes.
     /// - Returns: The converted private key.
     /// - Throws: `HMCryptoKitError`
-    /// - SeeAlso: `ECKey`
-    static func privateKey<C: Collection>(privateKeyBinary: C, publicKeyBinary: C) throws -> ECKey where C.Element == UInt8 {
+    /// - SeeAlso: `HMECKey`
+    static func privateKey<C: Collection>(privateKeyBinary: C, publicKeyBinary: C) throws -> HMECKey where C.Element == UInt8 {
         guard privateKeyBinary.count == 32 else {
             throw HMCryptoKitError.invalidInputSize("privateKeyBinary")
         }
@@ -197,8 +197,8 @@ public extension HMCryptoKit {
     ///   - publicKey: Public key from *another*
     /// - Returns: The generated shared key, 32 bytes.
     /// - Throws: `HMCryptoKitError`
-    /// - SeeAlso: `ECKey`
-    static func sharedKey(privateKey: ECKey, publicKey: ECKey) throws -> [UInt8] {
+    /// - SeeAlso: `HMECKey`
+    static func sharedKey(privateKey: HMECKey, publicKey: HMECKey) throws -> [UInt8] {
         #if os(iOS) || os(tvOS) || os(watchOS)
             let params: NSDictionary = [SecKeyKeyExchangeParameter.requestedSize : 32]
             var error: Unmanaged<CFError>?
