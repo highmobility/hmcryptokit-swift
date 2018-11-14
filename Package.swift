@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/vapor/copenssl", .branch("master")),
-        .package(url: "https://github.com/highmobility/hm-utilities-swift", .branch("master")),
+        .package(url: "https://github.com/highmobility/hm-utilities-swift", .upToNextMinor(from: "1.2.0")),
     ],
     targets: [
         .target(name: "HMCryptoKit", dependencies: ["HMUtilities"]),
