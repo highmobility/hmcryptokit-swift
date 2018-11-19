@@ -38,7 +38,7 @@ import Foundation
 #endif
 
 
-extension HMCryptoKit {
+public extension HMCryptoKit {
 
     static func sha256<C: Collection>(message: C) throws -> [UInt8] where C.Element == UInt8 {
         var digest = [UInt8](zeroFilledTo: Int(kDigestLength))
