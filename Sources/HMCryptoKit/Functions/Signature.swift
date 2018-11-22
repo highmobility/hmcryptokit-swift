@@ -36,6 +36,35 @@ import Foundation
 
 public extension HMCryptoKit {
 
+    /// Generate a JWT signature for a message.
+    ///
+    /// That JSON Web Token is used in HMOAuth.
+    /// The *elliptic curve DSA (digital signature algorithm) X9.62 SHA256* is used for the generation.
+    ///
+    /// - Parameters:
+    ///   - message: The message to generate a signature for.
+    ///   - privateKey: The private key to use for signature generation.
+    /// - Returns: The signature's 64 bytes.
+    /// - Throws: `HMCryptoKitError`
+    /// - SeeAlso:
+    ///     - `HMECKey`
+    static func jwtSignature<C: Collection>(message: C, privateKey: HMECKey) throws -> [UInt8] where C.Element == UInt8 {
+        // TODO: Implement for macOS and Linux
+        #if !os(iOS) && !os(tvOS) && !os(watchOS)
+            return []
+        #endif
+
+        var error: Unmanaged<CFError>?
+        let digest = try sha256(message: message)
+
+        // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
+        guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureDigestX962SHA256, (digest.data as CFData), &error) as Data? else {
+            throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
+
+        return extract64ByteSignature(from: signature)
+    }
+
     /// Generate a signature for a message.
     ///
     /// The *elliptic curve DSA (digital signature algorithm) X9.62 SHA256* is used for the generation.
@@ -61,24 +90,7 @@ public extension HMCryptoKit {
                 throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
-            /*
-             The format: 0x30 b1 0x02 b2 (vr) 0x02 b3 (vs)
-             */
-            let b2 = signature[3]           // Length of vR
-            let b3 = signature[5 + Int(b2)] // Length of vS
-
-            var vR = signature[4 ..< (4 + Int(b2))].bytes
-            var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))].bytes
-
-            // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
-            vR = vR.drop { $0 == 0x00 }.bytes
-            vS = vS.drop { $0 == 0x00 }.bytes
-
-            // Expands the vectors to our desired size of 32 bytes
-            while vR.count < 32 { vR.insert(0x00, at: 0) }
-            while vS.count < 32 { vS.insert(0x00, at: 0) }
-
-            return vR + vS
+            return extract64ByteSignature(from: signature)
         #else
             // Manage the key
             guard privateKey.count == 32 else {
@@ -202,5 +214,29 @@ public extension HMCryptoKit {
 
             return ECDSA_do_verify(digest, SHA256_DIGEST_LENGTH, sig, key) == 1
         #endif
+    }
+}
+
+private extension HMCryptoKit {
+
+    static func extract64ByteSignature(from signature: Data) -> [UInt8] {
+        /*
+         The format: 0x30 b1 0x02 b2 (vr) 0x02 b3 (vs)
+         */
+        let b2 = signature[3]           // Length of vR
+        let b3 = signature[5 + Int(b2)] // Length of vS
+
+        var vR = signature[4 ..< (4 + Int(b2))].bytes
+        var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))].bytes
+
+        // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
+        vR = vR.drop { $0 == 0x00 }.bytes
+        vS = vS.drop { $0 == 0x00 }.bytes
+
+        // Expands the vectors to our desired size of 32 bytes
+        while vR.count < 32 { vR.insert(0x00, at: 0) }
+        while vS.count < 32 { vS.insert(0x00, at: 0) }
+
+        return vR + vS
     }
 }
