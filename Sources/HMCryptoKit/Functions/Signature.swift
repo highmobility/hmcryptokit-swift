@@ -36,35 +36,6 @@ import Foundation
 
 public extension HMCryptoKit {
 
-    /// Generate a JWT signature for a message.
-    ///
-    /// That JSON Web Token is used in HMOAuth.
-    /// The *elliptic curve DSA (digital signature algorithm) X9.62 SHA256* is used for the generation.
-    ///
-    /// - Parameters:
-    ///   - message: The message to generate a signature for.
-    ///   - privateKey: The private key to use for signature generation.
-    /// - Returns: The signature's 64 bytes.
-    /// - Throws: `HMCryptoKitError`
-    /// - SeeAlso:
-    ///     - `HMECKey`
-    static func jwtSignature<C: Collection>(message: C, privateKey: HMECKey) throws -> [UInt8] where C.Element == UInt8 {
-        // TODO: Implement for macOS and Linux
-        #if !os(iOS) && !os(tvOS) && !os(watchOS)
-            return []
-        #endif
-
-        var error: Unmanaged<CFError>?
-        let digest = try sha256(message: message)
-
-        // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
-        guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureDigestX962SHA256, (digest.data as CFData), &error) as Data? else {
-            throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
-        }
-
-        return extract64ByteSignature(from: signature)
-    }
-
     /// Generate a signature for a message.
     ///
     /// The *elliptic curve DSA (digital signature algorithm) X9.62 SHA256* is used for the generation.
@@ -72,58 +43,23 @@ public extension HMCryptoKit {
     /// - Parameters:
     ///   - message: The message to generate a signature for.
     ///   - privateKey: The private key to use for signature generation.
+    ///   - padded: If the message will be *padded* or not.
     /// - Returns: The signature's 64 bytes.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso:
     ///     - `HMECKey`
     ///     - `verify(signature:message:publicKey:)`
-    static func signature<C: Collection>(message: C, privateKey: HMECKey) throws -> [UInt8] where C.Element == UInt8 {
-        // Pad the message to be a multiple of 64
-        let modulo = message.count % 64
-        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
+    static func signature<C: Collection>(message: C, privateKey: HMECKey, padded: Bool = true) throws -> [UInt8] where C.Element == UInt8 {
+        if padded {
+            // Pad the message to be a multiple of 64
+            let modulo = message.count % 64
+            let paddedMessage = message.bytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
 
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            var error: Unmanaged<CFError>?
-
-            // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
-            guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), &error) as Data? else {
-                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
-            }
-
-            return extract64ByteSignature(from: signature)
-        #else
-            // Manage the key
-            guard privateKey.count == 32 else {
-                throw HMCryptoKitError.invalidInputSize("privateKey")
-            }
-
-            guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-                let keyBN = BN_bin2bn(privateKey.bytes, 32, nil),
-                EC_KEY_set_private_key(key, keyBN) == 1 else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            let digest = try sha256(message: paddedMessage)
-
-            // Create the signature
-            guard let sig = ECDSA_do_sign(digest, SHA256_DIGEST_LENGTH, key) else {
-                throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            // Extract the signature
-            let rvOffset = 32 - Int(ceil(Double(BN_num_bits(sig.pointee.r)) / 8.0))
-            let svOffset = 32 - Int(ceil(Double(BN_num_bits(sig.pointee.s)) / 8.0))
-            var rVector = [UInt8](zeroFilledTo: 32)
-            var sVector = [UInt8](zeroFilledTo: 32)
-
-            // Because the OpenSSL returns the SHORTEST possible format (meaning it cuts 0-bits from the vector's front)
-            guard BN_bn2bin(sig.pointee.r, &rVector + rvOffset) != 0,
-                BN_bn2bin(sig.pointee.s, &sVector + svOffset) != 0 else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            return rVector + sVector
-        #endif
+            return try createSignature(message: paddedMessage, privateKey: privateKey)
+        }
+        else {
+            return try createSignature(message: message, privateKey: privateKey)
+        }
     }
 
 
@@ -219,24 +155,65 @@ public extension HMCryptoKit {
 
 private extension HMCryptoKit {
 
-    static func extract64ByteSignature(from signature: Data) -> [UInt8] {
-        /*
-         The format: 0x30 b1 0x02 b2 (vr) 0x02 b3 (vs)
-         */
-        let b2 = signature[3]           // Length of vR
-        let b3 = signature[5 + Int(b2)] // Length of vS
+    static func createSignature<C: Collection>(message: C, privateKey: HMECKey) throws -> [UInt8] where C.Element == UInt8 {
+        #if os(iOS) || os(tvOS) || os(watchOS)
+            var error: Unmanaged<CFError>?
 
-        var vR = signature[4 ..< (4 + Int(b2))].bytes
-        var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))].bytes
+            // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
+            guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (message.data as CFData), &error) as Data? else {
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+            }
 
-        // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
-        vR = vR.drop { $0 == 0x00 }.bytes
-        vS = vS.drop { $0 == 0x00 }.bytes
+            /*
+             The format: 0x30 b1 0x02 b2 (vr) 0x02 b3 (vs)
+             */
+            let b2 = signature[3]           // Length of vR
+            let b3 = signature[5 + Int(b2)] // Length of vS
 
-        // Expands the vectors to our desired size of 32 bytes
-        while vR.count < 32 { vR.insert(0x00, at: 0) }
-        while vS.count < 32 { vS.insert(0x00, at: 0) }
+            var vR = signature[4 ..< (4 + Int(b2))].bytes
+            var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))].bytes
 
-        return vR + vS
+            // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
+            vR = vR.drop { $0 == 0x00 }.bytes
+            vS = vS.drop { $0 == 0x00 }.bytes
+
+            // Expands the vectors to our desired size of 32 bytes
+            while vR.count < 32 { vR.insert(0x00, at: 0) }
+            while vS.count < 32 { vS.insert(0x00, at: 0) }
+
+            return vR + vS
+        #else
+            // Manage the key
+            guard privateKey.count == 32 else {
+                throw HMCryptoKitError.invalidInputSize("privateKey")
+            }
+
+            guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
+                let keyBN = BN_bin2bn(privateKey.bytes, 32, nil),
+                EC_KEY_set_private_key(key, keyBN) == 1 else {
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
+            }
+
+            let digest = try sha256(message: paddedMessage)
+
+            // Create the signature
+            guard let sig = ECDSA_do_sign(digest, SHA256_DIGEST_LENGTH, key) else {
+                throw HMCryptoKitError.openSSLError(getOpenSSLError())
+            }
+
+            // Extract the signature
+            let rvOffset = 32 - Int(ceil(Double(BN_num_bits(sig.pointee.r)) / 8.0))
+            let svOffset = 32 - Int(ceil(Double(BN_num_bits(sig.pointee.s)) / 8.0))
+            var rVector = [UInt8](zeroFilledTo: 32)
+            var sVector = [UInt8](zeroFilledTo: 32)
+
+            // Because the OpenSSL returns the SHORTEST possible format (meaning it cuts 0-bits from the vector's front)
+            guard BN_bn2bin(sig.pointee.r, &rVector + rvOffset) != 0,
+                BN_bn2bin(sig.pointee.s, &sVector + svOffset) != 0 else {
+                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
+            }
+
+            return rVector + sVector
+        #endif
     }
 }
