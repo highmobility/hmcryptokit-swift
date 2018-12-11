@@ -116,6 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2025022021B1577700F8F5A3 /* Testground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Testground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		204200212068DFF3006367D5 /* RandomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
 		204200232068E228006367D5 /* KeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
 		204200252068EEAD006367D5 /* AESTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESTests.swift; sourceTree = "<group>"; };
@@ -308,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
+				2025022021B1577700F8F5A3 /* Testground.playground */,
 				OBJ_7 /* Sources */,
 				OBJ_25 /* Tests */,
 				OBJ_28 /* Dependencies */,

@@ -172,7 +172,9 @@ public extension HMCryptoKit {
                 throw HMCryptoKitError.invalidInputSize("publicKeyBinary")
             }
 
-            let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPrivate, kSecAttrKeySizeInBits : 256]
+            let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom,
+                                            kSecAttrKeyClass : kSecAttrKeyClassPrivate,
+                                            kSecAttrKeySizeInBits : 256]
             let keyBytes = [0x04] + publicKeyBinary.bytes + privateKeyBinary.bytes  // Format: 04 || X || Y || K
             var error: Unmanaged<CFError>?
 

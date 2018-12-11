@@ -43,7 +43,7 @@ public extension HMCryptoKit {
     /// - Parameters:
     ///   - message: The message to generate a signature for.
     ///   - privateKey: The private key to use for signature generation.
-    ///   - padded: If the message will be *padded* or not.
+    ///   - padded: If the message will be *padded* or not, defaults to `true`.
     /// - Returns: The signature's 64 bytes.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso:
