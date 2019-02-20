@@ -27,16 +27,18 @@
 		204200282069070D006367D5 /* HMACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200272069070D006367D5 /* HMACTests.swift */; };
 		2042002A20690C09006367D5 /* SignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2042002920690C09006367D5 /* SignatureTests.swift */; };
 		2069E34F2062AD7B00117697 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E34E2062AD7B00117697 /* Printer.swift */; };
-		2070E2A6221D81690050CE86 /* HMBytesConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2A5221D81690050CE86 /* HMBytesConvertable.swift */; };
+		2070E2CF221D86670050CE86 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2C6221D86670050CE86 /* String+Extensions.swift */; };
+		2070E2D0221D86670050CE86 /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2C7221D86670050CE86 /* Bool+Extensions.swift */; };
+		2070E2D1221D86670050CE86 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2C8221D86670050CE86 /* UInt8Collection+Extensions.swift */; };
+		2070E2D2221D86670050CE86 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2C9221D86670050CE86 /* URL+Extensions.swift */; };
+		2070E2D3221D86670050CE86 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2CA221D86670050CE86 /* Date+Extensions.swift */; };
+		2070E2D4221D86670050CE86 /* SignedInteger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2CB221D86670050CE86 /* SignedInteger+Extensions.swift */; };
+		2070E2D5221D86670050CE86 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2CC221D86670050CE86 /* Float+Extensions.swift */; };
+		2070E2D6221D86670050CE86 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2CD221D86670050CE86 /* Double+Extensions.swift */; };
+		2070E2D7221D86670050CE86 /* HMBytesConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2CE221D86670050CE86 /* HMBytesConvertable.swift */; };
 		2095170E206540A2001AA315 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		20951714206540D1001AA315 /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3522062B2B500117697 /* CommandInfo.swift */; };
 		20951715206540D1001AA315 /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3502062B2A800117697 /* CommandsManager.swift */; };
-		20B7C950215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */; };
-		20B7C951215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */; };
-		20B7C952215CCD4E00C9C9A7 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */; };
-		20B7C955215CCD4E00C9C9A7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */; };
-		20B7C956215CCD4E00C9C9A7 /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */; };
-		20B7C957215CCD4E00C9C9A7 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
 		OBJ_58 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		OBJ_69 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* main.swift */; };
@@ -124,14 +126,16 @@
 		2069E34E2062AD7B00117697 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		2069E3502062B2A800117697 /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
 		2069E3522062B2B500117697 /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
-		2070E2A5221D81690050CE86 /* HMBytesConvertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMBytesConvertable.swift; sourceTree = "<group>"; };
+		2070E2C6221D86670050CE86 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2C7221D86670050CE86 /* Bool+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2C8221D86670050CE86 /* UInt8Collection+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8Collection+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2C9221D86670050CE86 /* URL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2CA221D86670050CE86 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2CB221D86670050CE86 /* SignedInteger+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignedInteger+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2CC221D86670050CE86 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2CD221D86670050CE86 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		2070E2CE221D86670050CE86 /* HMBytesConvertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMBytesConvertable.swift; sourceTree = "<group>"; };
 		20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMCryptoKitCommandsInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignedInteger+Extensions.swift"; sourceTree = "<group>"; };
-		20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8Collection+Extensions.swift"; sourceTree = "<group>"; };
-		20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
-		20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Extensions.swift"; sourceTree = "<group>"; };
-		20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitCLT::Product" /* HMCryptoKitCLT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = HMCryptoKitCLT; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = HMCryptoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,7 +151,7 @@
 		OBJ_19 /* HMCryptoKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMCryptoKit.swift; sourceTree = "<group>"; };
 		OBJ_21 /* HMCryptoKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMCryptoKitError.swift; sourceTree = "<group>"; };
 		OBJ_24 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		OBJ_32 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ".build/checkouts/hm-utilities-swift--8516717724239130443/Package.swift"; sourceTree = "<group>"; };
+		OBJ_32 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ".build/checkouts/hm-utilities-swift-5057577297437795933/Package.swift"; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +200,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2070E2C4221D86670050CE86 /* HMUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				2070E2CE221D86670050CE86 /* HMBytesConvertable.swift */,
+				2070E2C5221D86670050CE86 /* Extensions */,
+			);
+			name = HMUtilities;
+			path = ".build/checkouts/hm-utilities-swift-5057577297437795933/Sources/HMUtilities";
+			sourceTree = "<group>";
+		};
+		2070E2C5221D86670050CE86 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2070E2C6221D86670050CE86 /* String+Extensions.swift */,
+				2070E2C7221D86670050CE86 /* Bool+Extensions.swift */,
+				2070E2C8221D86670050CE86 /* UInt8Collection+Extensions.swift */,
+				2070E2C9221D86670050CE86 /* URL+Extensions.swift */,
+				2070E2CA221D86670050CE86 /* Date+Extensions.swift */,
+				2070E2CB221D86670050CE86 /* SignedInteger+Extensions.swift */,
+				2070E2CC221D86670050CE86 /* Float+Extensions.swift */,
+				2070E2CD221D86670050CE86 /* Double+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		209516FE20654022001AA315 /* HMCryptoKitCommandsInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,25 +298,10 @@
 		OBJ_29 /* HMUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_30 /* HMUtilities */,
+				2070E2C4221D86670050CE86 /* HMUtilities */,
 				OBJ_32 /* Package.swift */,
 			);
 			name = HMUtilities;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_30 /* HMUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */,
-				20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */,
-				20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */,
-				2070E2A5221D81690050CE86 /* HMBytesConvertable.swift */,
-				20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */,
-				20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */,
-				20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */,
-			);
-			name = HMUtilities;
-			path = ".build/checkouts/hm-utilities-swift--8516717724239130443/Sources/HMUtilities";
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_33 /* Products */ = {
@@ -550,13 +564,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				20B7C957215CCD4E00C9C9A7 /* Double+Extensions.swift in Sources */,
-				20B7C951215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift in Sources */,
-				20B7C952215CCD4E00C9C9A7 /* Float+Extensions.swift in Sources */,
-				2070E2A6221D81690050CE86 /* HMBytesConvertable.swift in Sources */,
-				20B7C956215CCD4E00C9C9A7 /* Bool+Extensions.swift in Sources */,
-				20B7C955215CCD4E00C9C9A7 /* String+Extensions.swift in Sources */,
-				20B7C950215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift in Sources */,
+				2070E2D6221D86670050CE86 /* Double+Extensions.swift in Sources */,
+				2070E2CF221D86670050CE86 /* String+Extensions.swift in Sources */,
+				2070E2D7221D86670050CE86 /* HMBytesConvertable.swift in Sources */,
+				2070E2D2221D86670050CE86 /* URL+Extensions.swift in Sources */,
+				2070E2D4221D86670050CE86 /* SignedInteger+Extensions.swift in Sources */,
+				2070E2D5221D86670050CE86 /* Float+Extensions.swift in Sources */,
+				2070E2D1221D86670050CE86 /* UInt8Collection+Extensions.swift in Sources */,
+				2070E2D3221D86670050CE86 /* Date+Extensions.swift in Sources */,
+				2070E2D0221D86670050CE86 /* Bool+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
