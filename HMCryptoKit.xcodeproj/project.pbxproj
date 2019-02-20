@@ -27,14 +27,13 @@
 		204200282069070D006367D5 /* HMACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200272069070D006367D5 /* HMACTests.swift */; };
 		2042002A20690C09006367D5 /* SignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2042002920690C09006367D5 /* SignatureTests.swift */; };
 		2069E34F2062AD7B00117697 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E34E2062AD7B00117697 /* Printer.swift */; };
+		2070E2A6221D81690050CE86 /* HMBytesConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2A5221D81690050CE86 /* HMBytesConvertable.swift */; };
 		2095170E206540A2001AA315 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		20951714206540D1001AA315 /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3522062B2B500117697 /* CommandInfo.swift */; };
 		20951715206540D1001AA315 /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3502062B2A800117697 /* CommandsManager.swift */; };
 		20B7C950215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */; };
 		20B7C951215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */; };
 		20B7C952215CCD4E00C9C9A7 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */; };
-		20B7C953215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94B215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift */; };
-		20B7C954215CCD4E00C9C9A7 /* HMDebugTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94C215CCD4E00C9C9A7 /* HMDebugTree.swift */; };
 		20B7C955215CCD4E00C9C9A7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */; };
 		20B7C956215CCD4E00C9C9A7 /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */; };
 		20B7C957215CCD4E00C9C9A7 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */; };
@@ -125,12 +124,11 @@
 		2069E34E2062AD7B00117697 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		2069E3502062B2A800117697 /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
 		2069E3522062B2B500117697 /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
+		2070E2A5221D81690050CE86 /* HMBytesConvertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMBytesConvertable.swift; sourceTree = "<group>"; };
 		20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMCryptoKitCommandsInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignedInteger+Extensions.swift"; sourceTree = "<group>"; };
 		20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8Collection+Extensions.swift"; sourceTree = "<group>"; };
 		20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
-		20B7C94B215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FixedWidthInteger+Extensions.swift"; sourceTree = "<group>"; };
-		20B7C94C215CCD4E00C9C9A7 /* HMDebugTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMDebugTree.swift; sourceTree = "<group>"; };
 		20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Extensions.swift"; sourceTree = "<group>"; };
 		20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
@@ -281,10 +279,9 @@
 			isa = PBXGroup;
 			children = (
 				20B7C94E215CCD4E00C9C9A7 /* Bool+Extensions.swift */,
-				20B7C94C215CCD4E00C9C9A7 /* HMDebugTree.swift */,
 				20B7C94F215CCD4E00C9C9A7 /* Double+Extensions.swift */,
-				20B7C94B215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift */,
 				20B7C94A215CCD4E00C9C9A7 /* Float+Extensions.swift */,
+				2070E2A5221D81690050CE86 /* HMBytesConvertable.swift */,
 				20B7C948215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift */,
 				20B7C94D215CCD4E00C9C9A7 /* String+Extensions.swift */,
 				20B7C949215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift */,
@@ -556,9 +553,8 @@
 				20B7C957215CCD4E00C9C9A7 /* Double+Extensions.swift in Sources */,
 				20B7C951215CCD4E00C9C9A7 /* UInt8Collection+Extensions.swift in Sources */,
 				20B7C952215CCD4E00C9C9A7 /* Float+Extensions.swift in Sources */,
+				2070E2A6221D81690050CE86 /* HMBytesConvertable.swift in Sources */,
 				20B7C956215CCD4E00C9C9A7 /* Bool+Extensions.swift in Sources */,
-				20B7C954215CCD4E00C9C9A7 /* HMDebugTree.swift in Sources */,
-				20B7C953215CCD4E00C9C9A7 /* FixedWidthInteger+Extensions.swift in Sources */,
 				20B7C955215CCD4E00C9C9A7 /* String+Extensions.swift in Sources */,
 				20B7C950215CCD4E00C9C9A7 /* SignedInteger+Extensions.swift in Sources */,
 			);
