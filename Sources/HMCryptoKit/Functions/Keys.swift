@@ -1,6 +1,6 @@
 //
 // HMCryptoKit
-// Copyright (C) 2018 High-Mobility GmbH
+// Copyright (C) 2019 High-Mobility GmbH
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 //  HMCryptoKit
 //
 //  Created by Mikk Rätsep on 06/03/2018.
+//  Copyright © 2019 High Mobility GmbH. All rights reserved.
 //
 
 import Foundation
