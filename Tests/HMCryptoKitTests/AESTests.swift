@@ -40,10 +40,10 @@ class AESTests: XCTestCase {
     // MARK: XCTestCase
 
     func testEncrypt() {
-        let msg = "00112233445566778899AABBCCDDEEFF".bytes
-        let iv = "1804AD6A40A372FE430293CC7B236BA8".bytes
-        let key = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".bytes
-        let encryptedBytes = "0F6B2AFE7B9A51F4955D89BADEE5ED25".bytes
+        let msg = "00112233445566778899AABBCCDDEEFF".hexBytes
+        let iv = "1804AD6A40A372FE430293CC7B236BA8".hexBytes
+        let key = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".hexBytes
+        let encryptedBytes = "0F6B2AFE7B9A51F4955D89BADEE5ED25".hexBytes
 
         do {
             let cipherText = try HMCryptoKit.encryptDecrypt(message: msg, iv: iv, key: key)
@@ -57,13 +57,13 @@ class AESTests: XCTestCase {
     }
 
     func testIV() {
-        let nonce = "001122334455667788".bytes
-        let tNonce = "FFEEDDCCBBAA998877".bytes
+        let nonce = "001122334455667788".hexBytes
+        let tNonce = "FFEEDDCCBBAA998877".hexBytes
 
         do {
             let iv = try HMCryptoKit.iv(nonce: nonce, transactionNonce: tNonce)
 
-            XCTAssertEqual(iv, (nonce.prefix(upTo: 7).bytes + tNonce.prefix(upTo: 9).bytes))
+            XCTAssertEqual(iv, Array(nonce.prefix(upTo: 7) + tNonce.prefix(upTo: 9)))
         }
         catch {
             XCTFail("Failed to create the Injection Vector: \(error)")

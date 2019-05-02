@@ -40,9 +40,9 @@ class HMACTests: XCTestCase {
     // MARK: XCTestCase
 
     func testHMAC() {
-        let msgBytes = "00112233445566778899AABBCCDDEEFF".bytes
-        let keyBytes = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".bytes
-        let hmacBytes = "520542F3B93046AC39E304B9EE493B0632356E3171366B70F4E5540B2574A249".bytes
+        let msgBytes = "00112233445566778899AABBCCDDEEFF".hexBytes
+        let keyBytes = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".hexBytes
+        let hmacBytes = "520542F3B93046AC39E304B9EE493B0632356E3171366B70F4E5540B2574A249".hexBytes
 
         do {
             let hmac = try HMCryptoKit.hmac(message: msgBytes, key: keyBytes)
@@ -56,9 +56,9 @@ class HMACTests: XCTestCase {
     }
 
     func testVerifyHMAC() {
-        let hmacBytes = "520542F3B93046AC39E304B9EE493B0632356E3171366B70F4E5540B2574A249".bytes
-        let msgBytes = "00112233445566778899AABBCCDDEEFF".bytes
-        let keyBytes = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".bytes
+        let hmacBytes = "520542F3B93046AC39E304B9EE493B0632356E3171366B70F4E5540B2574A249".hexBytes
+        let msgBytes = "00112233445566778899AABBCCDDEEFF".hexBytes
+        let keyBytes = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".hexBytes
 
         do {
             let isVerified = try HMCryptoKit.verify(hmac: hmacBytes, message: msgBytes, key: keyBytes)

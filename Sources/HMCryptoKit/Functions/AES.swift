@@ -59,12 +59,15 @@ public extension HMCryptoKit {
             throw HMCryptoKitError.invalidInputSize("key")
         }
 
+        let keyBytes = Array(key.prefix(kCipherAndKeySize))
+        let ivBytes = Array(iv)
+
         #if os(iOS) || os(tvOS) || os(watchOS)
             var cipher = [UInt8](zeroFilledTo: kCipherAndKeySize)
             let status = CCCrypt(CCOperation(kCCEncrypt), CCAlgorithm(kCCAlgorithmAES), CCOptions(kCCOptionECBMode),    // Configuration
-                                 key.bytes.prefix(kCipherAndKeySize).bytes, kCipherAndKeySize,                          // Key
+                                 keyBytes, kCipherAndKeySize,                                                           // Key
                                  nil,                                                                                   // ECB doesn't use an IV
-                                 iv.bytes, Int(iv.count),                                                               // IV as the "dataIn"
+                                 ivBytes, Int(iv.count),                                                                // IV as the "dataIn"
                                  &cipher, cipher.count,                                                                 // Cipher output
                                  nil)                                                                                   // Output length
 
@@ -73,17 +76,18 @@ public extension HMCryptoKit {
             }
 
             return message.enumerated().map {
-                $0.element ^ cipher.bytes[$0.offset % kCipherAndKeySize]
+                $0.element ^ cipher[$0.offset % kCipherAndKeySize]
             }
         #else
             let additionalCount = Int(message.count) % kCipherAndKeySize
+            let messageBytes = Array(message)
             var output = [UInt8](zeroFilledTo: Int(message.count))
             var additionalOutput = [UInt8](zeroFilledTo: additionalCount)
             var len: Int32 = 0
 
             guard let ctx = EVP_CIPHER_CTX_new(),
-                EVP_EncryptInit(ctx, EVP_aes_128_ctr(), key.bytes.prefix(kCipherAndKeySize).bytes, iv.bytes) == 1,
-                EVP_EncryptUpdate(ctx, &output, &len, message.bytes, Int32(message.count)) == 1,
+                EVP_EncryptInit(ctx, EVP_aes_128_ctr(), keyBytes, ivBytes) == 1,
+                EVP_EncryptUpdate(ctx, &output, &len, messageBytes, Int32(message.count)) == 1,
                 EVP_EncryptFinal(ctx, &additionalOutput, &len) == 1 else {
                     throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
@@ -109,6 +113,9 @@ public extension HMCryptoKit {
             throw HMCryptoKitError.invalidInputSize("transactionNonce")
         }
 
-        return nonce.bytes.prefix(7).bytes + transactionNonce.bytes.prefix(9).bytes
+        let nonceBytes = Array(nonce)
+        let transactionNonceBytes = Array(transactionNonce)
+
+        return Array(nonceBytes.prefix(7) + transactionNonceBytes.prefix(9))
     }
 }

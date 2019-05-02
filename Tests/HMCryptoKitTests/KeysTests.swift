@@ -49,8 +49,8 @@ class KeysTests: XCTestCase {
             XCTAssertEqual(keys.privateKey.count, 32)
             XCTAssertEqual(keys.publicKey.count, 64)
 
-            XCTAssertNotEqual(keys.privateKey.bytes, [UInt8](repeating: 0x00, count: 32))
-            XCTAssertNotEqual(keys.publicKey.bytes, [UInt8](repeating: 0x00, count: 64))
+            XCTAssertNotEqual(Array(keys.privateKey), [UInt8](repeating: 0x00, count: 32))
+            XCTAssertNotEqual(Array(keys.publicKey), [UInt8](repeating: 0x00, count: 64))
 
             // What else could be tested here?
         }
@@ -60,8 +60,8 @@ class KeysTests: XCTestCase {
     }
 
     func testKeysFromPrivate() {
-        let privateKeyBytes = "4E5AEF5FD084921404E289A8E2DACA3A7708925910129032A250A01907D545C3".bytes
-        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".bytes
+        let privateKeyBytes = "4E5AEF5FD084921404E289A8E2DACA3A7708925910129032A250A01907D545C3".hexBytes
+        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".hexBytes
 
         guard let privateKey = try? HMCryptoKit.privateKey(privateKeyBinary: privateKeyBytes, publicKeyBinary: publicKeyBytes) else {
             return XCTFail("Failed to create the Private key from bytes")
@@ -73,8 +73,8 @@ class KeysTests: XCTestCase {
             XCTAssertEqual(keys.privateKey.count, 32)
             XCTAssertEqual(keys.publicKey.count, 64)
 
-            XCTAssertEqual(keys.privateKey.bytes, privateKeyBytes)
-            XCTAssertEqual(keys.publicKey.bytes, publicKeyBytes)
+            XCTAssertEqual(Array(keys.privateKey), privateKeyBytes)
+            XCTAssertEqual(Array(keys.publicKey), publicKeyBytes)
         }
         catch {
             XCTFail("Failed to create the Public key: \(error)")
@@ -82,13 +82,13 @@ class KeysTests: XCTestCase {
     }
 
     func testPublicKey() {
-        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".bytes
+        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".hexBytes
 
         do {
             let publicKey = try HMCryptoKit.publicKey(binary: publicKeyBytes)
 
             XCTAssertEqual(publicKey.count, 64)
-            XCTAssertEqual(publicKey.bytes, publicKeyBytes)
+            XCTAssertEqual(Array(publicKey), publicKeyBytes)
         }
         catch {
             XCTFail("Failed to create the Public key: \(error)")
@@ -96,14 +96,14 @@ class KeysTests: XCTestCase {
     }
 
     func testPrivateKey() {
-        let privateKeyBytes = "4E5AEF5FD084921404E289A8E2DACA3A7708925910129032A250A01907D545C3".bytes
-        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".bytes
+        let privateKeyBytes = "4E5AEF5FD084921404E289A8E2DACA3A7708925910129032A250A01907D545C3".hexBytes
+        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".hexBytes
 
         do {
             let privateKey = try HMCryptoKit.privateKey(privateKeyBinary: privateKeyBytes, publicKeyBinary: publicKeyBytes)
 
             XCTAssertEqual(privateKey.count, 32)
-            XCTAssertEqual(privateKey.bytes, privateKeyBytes)
+            XCTAssertEqual(Array(privateKey), privateKeyBytes)
         }
         catch {
             XCTFail("Failed to create the Private key: \(error)")
@@ -111,9 +111,9 @@ class KeysTests: XCTestCase {
     }
 
     func testSharedKey() {
-        let privateKeyBytes = "4E5AEF5FD084921404E289A8E2DACA3A7708925910129032A250A01907D545C3".bytes
-        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".bytes
-        let sharedKeyBytes = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".bytes
+        let privateKeyBytes = "4E5AEF5FD084921404E289A8E2DACA3A7708925910129032A250A01907D545C3".hexBytes
+        let publicKeyBytes = "CC2992B5406DFFE2AA0B9B202889DEBFDDC13250B75EE8E1BA8DAFEC62CA914CC5F28A810A63C6EC9242E1E0C8C983042775C7D1EC46D362B8806DBFBEA52281".hexBytes
+        let sharedKeyBytes = "146CA6F959C8263198769E987922741507502239780A886ACF82FA4CC1EF3C02".hexBytes
 
         guard let privateKey = try? HMCryptoKit.privateKey(privateKeyBinary: privateKeyBytes, publicKeyBinary: publicKeyBytes) else {
             return XCTFail("Failed to create the Private key from bytes")
@@ -127,7 +127,7 @@ class KeysTests: XCTestCase {
             let sharedKey = try HMCryptoKit.sharedKey(privateKey: privateKey, publicKey: publicKey)
 
             XCTAssertEqual(sharedKey.count, 32)
-            XCTAssertEqual(sharedKey.bytes, sharedKeyBytes)
+            XCTAssertEqual(Array(sharedKey), sharedKeyBytes)
         }
         catch {
             XCTFail("Failed to create the Shared key: \(error)")

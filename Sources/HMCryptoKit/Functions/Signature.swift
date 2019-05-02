@@ -54,7 +54,8 @@ public extension HMCryptoKit {
         if padded {
             // Pad the message to be a multiple of 64
             let modulo = message.count % 64
-            let paddedMessage = message.bytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
+            let messageBytes = Array(message)
+            let paddedMessage = messageBytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
 
             return try createSignature(message: paddedMessage, privateKey: privateKey)
         }
@@ -82,9 +83,11 @@ public extension HMCryptoKit {
             throw HMCryptoKitError.invalidInputSize("signature")
         }
 
+        let messageBytes = Array(message)
+        let signatureBytes = Array(signature)
         // Pad the message to be a multiple of 64
         let modulo = message.count % 64
-        let paddedMessage = message.bytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
+        let paddedMessage = messageBytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
 
         #if os(iOS) || os(tvOS) || os(watchOS)
             var error: Unmanaged<CFError>?
@@ -94,12 +97,12 @@ public extension HMCryptoKit {
             // b2 - length of vR
             // b3 - length of vS
 
-            var vR = signature.bytes[0..<32].bytes
-            var vS = signature.bytes[32..<64].bytes
+            var vR = signatureBytes[0..<32]
+            var vS = signatureBytes[32..<64]
 
             // Removes all the 0x00 bytes from the front for the SHORTEST possible representation
-            vR = vR.drop { $0 == 0x00 }.bytes
-            vS = vS.drop { $0 == 0x00 }.bytes
+            vR = vR.drop { $0 == 0x00 }
+            vS = vS.drop { $0 == 0x00 }
 
             // If the first bit of the vector is 1, we'll need to prefix that vector with a 0x00
             if vR[0] > 0b0111_1111 { vR.insert(0x00, at: 0) }
@@ -111,8 +114,8 @@ public extension HMCryptoKit {
             let b1 = 4 + b2 + b3
 
             // Combine the bytes
-            let signatureBytes: [UInt8] = [0x30, b1, 0x02, b2] + vR + [0x02, b3] + vS
-            let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (paddedMessage.data as CFData), (signatureBytes.data as CFData), &error)
+            let outputSignatureBytes: [UInt8] = [0x30, b1, 0x02, b2] + vR + [0x02, b3] + vS
+            let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (Data(paddedMessage) as CFData), (Data(outputSignatureBytes) as CFData), &error)
 
             guard error == nil else {
                 throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
@@ -129,10 +132,10 @@ public extension HMCryptoKit {
             }
 
             // Extract the vectors
-            guard let rVector = BN_bin2bn(signature.bytes.prefix(32).bytes, 32, nil),
-                let sVector = BN_bin2bn(signature.bytes.suffix(32).bytes, 32, nil),
-                let xVector = BN_bin2bn(publicKey.bytes.prefix(32).bytes, 32, nil),
-                let yVector = BN_bin2bn(publicKey.bytes.suffix(32).bytes, 32, nil) else {
+            guard let rVector = BN_bin2bn(Array(signatureBytes.prefix(32)), 32, nil),
+                let sVector = BN_bin2bn(signatureBytes.suffix(32), 32, nil),
+                let xVector = BN_bin2bn(Array(publicKey.prefix(32)), 32, nil),
+                let yVector = BN_bin2bn(Array(publicKey.suffix(32)), 32, nil) else {
                     throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
@@ -159,9 +162,10 @@ private extension HMCryptoKit {
     static func createSignature<C: Collection>(message: C, privateKey: HMECKey) throws -> [UInt8] where C.Element == UInt8 {
         #if os(iOS) || os(tvOS) || os(watchOS)
             var error: Unmanaged<CFError>?
+            let messageBytes = Array(message)
 
             // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
-            guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (message.data as CFData), &error) as Data? else {
+            guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (Data(messageBytes) as CFData), &error) as Data? else {
                 throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
             }
 
@@ -171,18 +175,18 @@ private extension HMCryptoKit {
             let b2 = signature[3]           // Length of vR
             let b3 = signature[5 + Int(b2)] // Length of vS
 
-            var vR = signature[4 ..< (4 + Int(b2))].bytes
-            var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))].bytes
+            var vR = signature[4 ..< (4 + Int(b2))]
+            var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))]
 
             // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
-            vR = vR.drop { $0 == 0x00 }.bytes
-            vS = vS.drop { $0 == 0x00 }.bytes
+            vR = vR.drop { $0 == 0x00 }
+            vS = vS.drop { $0 == 0x00 }
 
             // Expands the vectors to our desired size of 32 bytes
             while vR.count < 32 { vR.insert(0x00, at: 0) }
             while vS.count < 32 { vS.insert(0x00, at: 0) }
 
-            return vR + vS
+            return Array(vR + vS)
         #else
             // Manage the key
             guard privateKey.count == 32 else {
@@ -190,11 +194,13 @@ private extension HMCryptoKit {
             }
 
             guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-                let keyBN = BN_bin2bn(privateKey.bytes, 32, nil),
+                let keyBN = BN_bin2bn(privateKey, 32, nil),
                 EC_KEY_set_private_key(key, keyBN) == 1 else {
                     throw HMCryptoKitError.openSSLError(getOpenSSLError())
             }
 
+            let modulo = message.count % 64
+            let paddedMessage = Array(message) + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
             let digest = try sha256(message: paddedMessage)
 
             // Create the signature

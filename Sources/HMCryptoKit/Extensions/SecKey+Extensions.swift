@@ -48,10 +48,10 @@ import Foundation
 
             switch keyClass {
             case String(kSecAttrKeyClassPublic):
-                return externalRepresentation.suffix(from: 1).bytes
+                return Array(externalRepresentation.suffix(from: 1))
 
             case String(kSecAttrKeyClassPrivate):
-                return externalRepresentation.suffix(from: 65).bytes
+                return Array(externalRepresentation.suffix(from: 1))
 
             default:
                 return []
@@ -65,7 +65,7 @@ import Foundation
 
         /// Data of the key.
         var data: Data {
-            return bytes.data
+            return Data(bytes)
         }
 
         /// The hex string representing the bytes of the key.
