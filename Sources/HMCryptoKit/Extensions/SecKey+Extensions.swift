@@ -51,7 +51,7 @@ import Foundation
                 return Array(externalRepresentation.suffix(from: 1))
 
             case String(kSecAttrKeyClassPrivate):
-                return Array(externalRepresentation.suffix(from: 1))
+                return Array(externalRepresentation.suffix(from: 65))
 
             default:
                 return []
