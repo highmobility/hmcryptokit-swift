@@ -97,12 +97,9 @@ public extension HMCryptoKit {
             // b2 - length of vR
             // b3 - length of vS
 
-            var vR = signatureBytes[0..<32]
-            var vS = signatureBytes[32..<64]
-
             // Removes all the 0x00 bytes from the front for the SHORTEST possible representation
-            vR = vR.drop { $0 == 0x00 }
-            vS = vS.drop { $0 == 0x00 }
+            var vR = Array(signatureBytes[0..<32].drop { $0 == 0x00 })
+            var vS = Array(signatureBytes[32..<64].drop { $0 == 0x00 })
 
             // If the first bit of the vector is 1, we'll need to prefix that vector with a 0x00
             if vR[0] > 0b0111_1111 { vR.insert(0x00, at: 0) }
