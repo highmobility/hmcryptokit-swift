@@ -18,5 +18,10 @@ let package = Package(
         .target(name: "HMCryptoKitCommandsInfo", dependencies: ["HMCryptoKit"]),
         .target(name: "HMCryptoKitCLT", dependencies: ["HMCryptoKit", "HMCryptoKitCommandsInfo"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
+    ],
+    platforms: [
+        .iOS(.v10),
+        .macOS(.v10_10),
+        .tvOS(.v10)
     ]
 )
