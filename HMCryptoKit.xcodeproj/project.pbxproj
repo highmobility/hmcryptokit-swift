@@ -3,22 +3,8 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
-
-/* Begin PBXAggregateTarget section */
-		206ED7DD20610CC300D7761E /* HMCryptoKit iOS Universal */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 206ED7DE20610CC300D7761E /* Build configuration list for PBXAggregateTarget "HMCryptoKit iOS Universal" */;
-			buildPhases = (
-				206ED7E120610CF300D7761E /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "HMCryptoKit iOS Universal";
-			productName = "HMCryptoKit iOS Universal";
-		};
-/* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
 		204200222068DFF3006367D5 /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200212068DFF3006367D5 /* RandomTests.swift */; };
@@ -27,25 +13,12 @@
 		204200282069070D006367D5 /* HMACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200272069070D006367D5 /* HMACTests.swift */; };
 		2042002A20690C09006367D5 /* SignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2042002920690C09006367D5 /* SignatureTests.swift */; };
 		2069E34F2062AD7B00117697 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E34E2062AD7B00117697 /* Printer.swift */; };
-		2070E2D7221D86670050CE86 /* HMBytesConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070E2CE221D86670050CE86 /* HMBytesConvertable.swift */; };
-		2090FFCC227AF623003CB8AC /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFC3227AF622003CB8AC /* String+Extensions.swift */; };
-		2090FFCD227AF623003CB8AC /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFC4227AF622003CB8AC /* Double+Extensions.swift */; };
-		2090FFCE227AF623003CB8AC /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFC5227AF622003CB8AC /* Collection+Extensions.swift */; };
-		2090FFCF227AF623003CB8AC /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFC6227AF622003CB8AC /* Date+Extensions.swift */; };
-		2090FFD0227AF623003CB8AC /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFC7227AF623003CB8AC /* Float+Extensions.swift */; };
-		2090FFD1227AF623003CB8AC /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFC8227AF623003CB8AC /* Bool+Extensions.swift */; };
-		2090FFD2227AF623003CB8AC /* SignedInteger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFC9227AF623003CB8AC /* SignedInteger+Extensions.swift */; };
-		2090FFD3227AF623003CB8AC /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFCA227AF623003CB8AC /* URL+Extensions.swift */; };
-		2090FFD4227AF623003CB8AC /* NSLock+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFCB227AF623003CB8AC /* NSLock+Extensions.swift */; };
-		2090FFD6227AF62E003CB8AC /* HMDebugTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090FFD5227AF62E003CB8AC /* HMDebugTree.swift */; };
-		2095170E206540A2001AA315 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		20951714206540D1001AA315 /* CommandInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3522062B2B500117697 /* CommandInfo.swift */; };
 		20951715206540D1001AA315 /* CommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2069E3502062B2A800117697 /* CommandsManager.swift */; };
+		20E3FEE4230C10FF00807415 /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 20E3FEE3230C10FF00807415 /* HMUtilities */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
-		OBJ_58 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		OBJ_69 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* main.swift */; };
 		OBJ_71 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
-		OBJ_72 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 		OBJ_79 /* SecKey+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* SecKey+Extensions.swift */; };
 		OBJ_80 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* UInt8Collection+Extensions.swift */; };
 		OBJ_81 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* AES.swift */; };
@@ -56,17 +29,9 @@
 		OBJ_86 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Signature.swift */; };
 		OBJ_87 /* HMCryptoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* HMCryptoKit.swift */; };
 		OBJ_88 /* HMCryptoKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* HMCryptoKitError.swift */; };
-		OBJ_90 /* HMUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		20580B3F205AB29E000E9ED3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "HMUtilities::HMUtilities";
-			remoteInfo = HMUtilities;
-		};
 		20580B40205AB29E000E9ED3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
@@ -74,33 +39,12 @@
 			remoteGlobalIDString = "HMCryptoKit::HMCryptoKit";
 			remoteInfo = HMCryptoKit;
 		};
-		20580B41205AB29E000E9ED3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "HMUtilities::HMUtilities";
-			remoteInfo = HMUtilities;
-		};
 		20580B42205AB29E000E9ED3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "HMCryptoKit::HMCryptoKit";
 			remoteInfo = HMCryptoKit;
-		};
-		20580B43205AB29E000E9ED3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "HMUtilities::HMUtilities";
-			remoteInfo = HMUtilities;
-		};
-		20951701206540A2001AA315 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "HMUtilities::HMUtilities";
-			remoteInfo = HMUtilities;
 		};
 		20951716206540DD001AA315 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -128,22 +72,10 @@
 		2069E34E2062AD7B00117697 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		2069E3502062B2A800117697 /* CommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsManager.swift; sourceTree = "<group>"; };
 		2069E3522062B2B500117697 /* CommandInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInfo.swift; sourceTree = "<group>"; };
-		2070E2CE221D86670050CE86 /* HMBytesConvertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMBytesConvertable.swift; sourceTree = "<group>"; };
-		2090FFC3227AF622003CB8AC /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFC4227AF622003CB8AC /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFC5227AF622003CB8AC /* Collection+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFC6227AF622003CB8AC /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFC7227AF623003CB8AC /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFC8227AF623003CB8AC /* Bool+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFC9227AF623003CB8AC /* SignedInteger+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignedInteger+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFCA227AF623003CB8AC /* URL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFCB227AF623003CB8AC /* NSLock+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+Extensions.swift"; sourceTree = "<group>"; };
-		2090FFD5227AF62E003CB8AC /* HMDebugTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMDebugTree.swift; sourceTree = "<group>"; };
 		20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMCryptoKitCommandsInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitCLT::Product" /* HMCryptoKitCLT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = HMCryptoKitCLT; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = HMCryptoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		"HMUtilities::HMUtilities::Product" /* HMUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HMUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* SecKey+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecKey+Extensions.swift"; sourceTree = "<group>"; };
 		OBJ_11 /* UInt8Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8Collection+Extensions.swift"; sourceTree = "<group>"; };
 		OBJ_13 /* AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
@@ -155,7 +87,6 @@
 		OBJ_19 /* HMCryptoKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMCryptoKit.swift; sourceTree = "<group>"; };
 		OBJ_21 /* HMCryptoKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMCryptoKitError.swift; sourceTree = "<group>"; };
 		OBJ_24 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		OBJ_32 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ".build/checkouts/hm-utilities-swift-5057577297437795933/Package.swift"; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,7 +95,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				2095170E206540A2001AA315 /* HMUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +103,6 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_57 /* HMCryptoKit.framework in Frameworks */,
-				OBJ_58 /* HMUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +111,6 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_71 /* HMCryptoKit.framework in Frameworks */,
-				OBJ_72 /* HMUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,47 +118,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_90 /* HMUtilities.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_97 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
+				20E3FEE4230C10FF00807415 /* HMUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2070E2C4221D86670050CE86 /* HMUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				2070E2CE221D86670050CE86 /* HMBytesConvertable.swift */,
-				2090FFD5227AF62E003CB8AC /* HMDebugTree.swift */,
-				2070E2C5221D86670050CE86 /* Extensions */,
-			);
-			name = HMUtilities;
-			path = ".build/checkouts/hm-utilities-swift-5057577297437795933/Sources/HMUtilities";
-			sourceTree = "<group>";
-		};
-		2070E2C5221D86670050CE86 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				2090FFC8227AF623003CB8AC /* Bool+Extensions.swift */,
-				2090FFC5227AF622003CB8AC /* Collection+Extensions.swift */,
-				2090FFC6227AF622003CB8AC /* Date+Extensions.swift */,
-				2090FFC4227AF622003CB8AC /* Double+Extensions.swift */,
-				2090FFC7227AF623003CB8AC /* Float+Extensions.swift */,
-				2090FFCB227AF623003CB8AC /* NSLock+Extensions.swift */,
-				2090FFC9227AF623003CB8AC /* SignedInteger+Extensions.swift */,
-				2090FFC3227AF622003CB8AC /* String+Extensions.swift */,
-				2090FFCA227AF623003CB8AC /* URL+Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		209516FE20654022001AA315 /* HMCryptoKitCommandsInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,30 +187,12 @@
 			path = Tests/HMCryptoKitTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_28 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_29 /* HMUtilities */,
-			);
-			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		OBJ_29 /* HMUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				2070E2C4221D86670050CE86 /* HMUtilities */,
-				OBJ_32 /* Package.swift */,
-			);
-			name = HMUtilities;
-			sourceTree = SOURCE_ROOT;
-		};
 		OBJ_33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				"HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */,
 				"HMCryptoKit::HMCryptoKitCLT::Product" /* HMCryptoKitCLT */,
 				"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */,
-				"HMUtilities::HMUtilities::Product" /* HMUtilities.framework */,
 				20951712206540A2001AA315 /* HMCryptoKitCommandsInfo.framework */,
 			);
 			name = Products;
@@ -329,7 +205,6 @@
 				2025022021B1577700F8F5A3 /* Testground.playground */,
 				OBJ_7 /* Sources */,
 				OBJ_25 /* Tests */,
-				OBJ_28 /* Dependencies */,
 				OBJ_33 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -378,7 +253,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				20951700206540A2001AA315 /* PBXTargetDependency */,
 				20AA9159206E85B100EC9461 /* PBXTargetDependency */,
 			);
 			name = HMCryptoKitCommandsInfo;
@@ -396,9 +270,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_91 /* PBXTargetDependency */,
 			);
 			name = HMCryptoKit;
+			packageProductDependencies = (
+				20E3FEE3230C10FF00807415 /* HMUtilities */,
+			);
 			productName = HMCryptoKit;
 			productReference = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -415,7 +291,6 @@
 			dependencies = (
 				20951717206540DD001AA315 /* PBXTargetDependency */,
 				OBJ_73 /* PBXTargetDependency */,
-				OBJ_74 /* PBXTargetDependency */,
 			);
 			name = HMCryptoKitCLT;
 			productName = HMCryptoKitCLT;
@@ -433,28 +308,11 @@
 			);
 			dependencies = (
 				OBJ_59 /* PBXTargetDependency */,
-				OBJ_61 /* PBXTargetDependency */,
 			);
 			name = HMCryptoKitTests;
 			productName = HMCryptoKitTests;
 			productReference = "HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		"HMUtilities::HMUtilities" /* HMUtilities */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_92 /* Build configuration list for PBXNativeTarget "HMUtilities" */;
-			buildPhases = (
-				OBJ_95 /* Sources */,
-				OBJ_97 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HMUtilities;
-			productName = HMUtilities;
-			productReference = "HMUtilities::HMUtilities::Product" /* HMUtilities.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -466,18 +324,10 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "High Mobility GmbH";
 				TargetAttributes = {
-					206ED7DD20610CC300D7761E = {
-						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = F42CFRE556;
-						ProvisioningStyle = Automatic;
-					};
 					"HMCryptoKit::HMCryptoKit" = {
 						LastSwiftMigration = 1000;
 					};
 					"HMCryptoKit::HMCryptoKitTests" = {
-						LastSwiftMigration = 1020;
-					};
-					"HMUtilities::HMUtilities" = {
 						LastSwiftMigration = 1020;
 					};
 				};
@@ -491,6 +341,9 @@
 				Base,
 			);
 			mainGroup = OBJ_5;
+			packageReferences = (
+				20E3FEE2230C10FF00807415 /* XCRemoteSwiftPackageReference "hm-utilities-swift" */,
+			);
 			productRefGroup = OBJ_33 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -499,27 +352,9 @@
 				"HMCryptoKit::HMCryptoKitCLT" /* HMCryptoKitCLT */,
 				"HMCryptoKit::HMCryptoKit" /* HMCryptoKit */,
 				209516FF206540A2001AA315 /* HMCryptoKitCommandsInfo */,
-				"HMUtilities::HMUtilities" /* HMUtilities */,
-				206ED7DD20610CC300D7761E /* HMCryptoKit iOS Universal */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		206ED7E120610CF300D7761E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"${SRCROOT}/Scripts/UniversalBuildScript.sh\"";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		20951702206540A2001AA315 /* Sources */ = {
@@ -569,32 +404,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_95 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				2090FFCD227AF623003CB8AC /* Double+Extensions.swift in Sources */,
-				2090FFCE227AF623003CB8AC /* Collection+Extensions.swift in Sources */,
-				2090FFD1227AF623003CB8AC /* Bool+Extensions.swift in Sources */,
-				2090FFCC227AF623003CB8AC /* String+Extensions.swift in Sources */,
-				2090FFD3227AF623003CB8AC /* URL+Extensions.swift in Sources */,
-				2090FFD2227AF623003CB8AC /* SignedInteger+Extensions.swift in Sources */,
-				2090FFCF227AF623003CB8AC /* Date+Extensions.swift in Sources */,
-				2090FFD4227AF623003CB8AC /* NSLock+Extensions.swift in Sources */,
-				2090FFD0227AF623003CB8AC /* Float+Extensions.swift in Sources */,
-				2090FFD6227AF62E003CB8AC /* HMDebugTree.swift in Sources */,
-				2070E2D7221D86670050CE86 /* HMBytesConvertable.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		20951700206540A2001AA315 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "HMUtilities::HMUtilities" /* HMUtilities */;
-			targetProxy = 20951701206540A2001AA315 /* PBXContainerItemProxy */;
-		};
 		20951717206540DD001AA315 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 209516FF206540A2001AA315 /* HMCryptoKitCommandsInfo */;
@@ -610,53 +422,14 @@
 			target = "HMCryptoKit::HMCryptoKit" /* HMCryptoKit */;
 			targetProxy = 20580B42205AB29E000E9ED3 /* PBXContainerItemProxy */;
 		};
-		OBJ_61 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "HMUtilities::HMUtilities" /* HMUtilities */;
-			targetProxy = 20580B43205AB29E000E9ED3 /* PBXContainerItemProxy */;
-		};
 		OBJ_73 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "HMCryptoKit::HMCryptoKit" /* HMCryptoKit */;
 			targetProxy = 20580B40205AB29E000E9ED3 /* PBXContainerItemProxy */;
 		};
-		OBJ_74 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "HMUtilities::HMUtilities" /* HMUtilities */;
-			targetProxy = 20580B41205AB29E000E9ED3 /* PBXContainerItemProxy */;
-		};
-		OBJ_91 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "HMUtilities::HMUtilities" /* HMUtilities */;
-			targetProxy = 20580B3F205AB29E000E9ED3 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		206ED7DF20610CC300D7761E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F42CFRE556;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Debug;
-		};
-		206ED7E020610CC300D7761E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F42CFRE556;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SWIFT_VERSION = 4.2;
-			};
-			name = Release;
-		};
 		20951710206540A2001AA315 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -813,7 +586,8 @@
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 				USE_HEADERMAP = NO;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
@@ -829,7 +603,10 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = HMCryptoKitTests;
 			};
@@ -844,7 +621,10 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				SWIFT_VERSION = 5.0;
 				TARGET_NAME = HMCryptoKitTests;
 			};
@@ -858,7 +638,10 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitCLT_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+					"@executable_path",
+				);
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
@@ -875,7 +658,10 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKitCLT_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+					"@executable_path",
+				);
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
@@ -920,67 +706,9 @@
 			};
 			name = Release;
 		};
-		OBJ_93 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMUtilities_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = HMUtilities;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = HMUtilities;
-			};
-			name = Debug;
-		};
-		OBJ_94 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMUtilities_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = HMUtilities;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = HMUtilities;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		206ED7DE20610CC300D7761E /* Build configuration list for PBXAggregateTarget "HMCryptoKit iOS Universal" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				206ED7DF20610CC300D7761E /* Debug */,
-				206ED7E020610CC300D7761E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		2095170F206540A2001AA315 /* Build configuration list for PBXNativeTarget "HMCryptoKitCommandsInfo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1026,16 +754,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_92 /* Build configuration list for PBXNativeTarget "HMUtilities" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_93 /* Debug */,
-				OBJ_94 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		20E3FEE2230C10FF00807415 /* XCRemoteSwiftPackageReference "hm-utilities-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:highmobility/hm-utilities-swift.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		20E3FEE3230C10FF00807415 /* HMUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20E3FEE2230C10FF00807415 /* XCRemoteSwiftPackageReference "hm-utilities-swift" */;
+			productName = HMUtilities;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = OBJ_1 /* Project object */;
 }
