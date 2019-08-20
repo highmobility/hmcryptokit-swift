@@ -27,16 +27,9 @@
 //
 
 import Foundation
+import CommonCrypto
 
-#if os(iOS) || os(tvOS) || os(watchOS)
-    import CommonCrypto
-
-    let kDigestLength = CC_SHA256_DIGEST_LENGTH
-#else
-    import COpenSSL
-
-    let kDigestLength = SHA256_DIGEST_LENGTH
-#endif
+let kDigestLength = CC_SHA256_DIGEST_LENGTH
 
 
 public extension HMCryptoKit {

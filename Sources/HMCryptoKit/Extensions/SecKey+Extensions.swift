@@ -27,50 +27,46 @@
 //
 
 import Foundation
+import Security
 
 
-#if os(iOS) || os(watchOS) || os(tvOS)
-    import Security
+public extension SecKey {
 
-
-    public extension SecKey {
-
-        /// The bytes of the key.
-        var bytes: [UInt8] {
-            // Check that the key suits us
-            guard let attributes = SecKeyCopyAttributes(self) as NSDictionary?,
-                let keyType = attributes[kSecAttrKeyType] as? String, keyType == String(kSecAttrKeyTypeECSECPrimeRandom),   // Key type
-                let keySize = attributes[kSecAttrKeySizeInBits] as? Int, keySize == 256,                                    // Key size
-                let keyClass = attributes.value(forKey: String(kSecAttrKeyClass)) as? String,
-                let externalRepresentation = SecKeyCopyExternalRepresentation(self, nil) as Data? else {
-                    return []
-            }
-
-            switch keyClass {
-            case String(kSecAttrKeyClassPublic):
-                return Array(externalRepresentation.suffix(from: 1))
-
-            case String(kSecAttrKeyClassPrivate):
-                return Array(externalRepresentation.suffix(from: 65))
-
-            default:
+    /// The bytes of the key.
+    var bytes: [UInt8] {
+        // Check that the key suits us
+        guard let attributes = SecKeyCopyAttributes(self) as NSDictionary?,
+            let keyType = attributes[kSecAttrKeyType] as? String, keyType == String(kSecAttrKeyTypeECSECPrimeRandom),   // Key type
+            let keySize = attributes[kSecAttrKeySizeInBits] as? Int, keySize == 256,                                    // Key size
+            let keyClass = attributes.value(forKey: String(kSecAttrKeyClass)) as? String,
+            let externalRepresentation = SecKeyCopyExternalRepresentation(self, nil) as Data? else {
                 return []
-            }
         }
 
-        /// The number of bytes of the key.
-        var count: Int {
-            return bytes.count
-        }
+        switch keyClass {
+        case String(kSecAttrKeyClassPublic):
+            return Array(externalRepresentation.suffix(from: 1))
 
-        /// Data of the key.
-        var data: Data {
-            return Data(bytes)
-        }
+        case String(kSecAttrKeyClassPrivate):
+            return Array(externalRepresentation.suffix(from: 65))
 
-        /// The hex string representing the bytes of the key.
-        var hex: String {
-            return bytes.hex
+        default:
+            return []
         }
     }
-#endif
+
+    /// The number of bytes of the key.
+    var count: Int {
+        return bytes.count
+    }
+
+    /// Data of the key.
+    var data: Data {
+        return Data(bytes)
+    }
+
+    /// The hex string representing the bytes of the key.
+    var hex: String {
+        return bytes.hex
+    }
+}

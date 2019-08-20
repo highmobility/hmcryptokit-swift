@@ -28,17 +28,11 @@
 
 import Foundation
 import HMUtilities
+import Security
 
 
-#if os(iOS) || os(tvOS) || os(watchOS)
-    import Security
-
-    /// The key type
-    public typealias HMECKey = SecKey
-#else
-    /// The key type
-    public typealias HMECKey = [UInt8]
-#endif
+/// The key type
+public typealias HMECKey = SecKey
 
 
 public struct HMCryptoKit {

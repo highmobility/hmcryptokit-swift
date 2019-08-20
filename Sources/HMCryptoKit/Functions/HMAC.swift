@@ -27,12 +27,7 @@
 //
 
 import Foundation
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-    import CommonCrypto
-#else
-    import COpenSSL
-#endif
+import CommonCrypto
 
 
 public extension HMCryptoKit {
@@ -58,19 +53,12 @@ public extension HMCryptoKit {
         let modulo = message.count % 64
         let paddedMessage = messageBytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
         var digest = [UInt8](zeroFilledTo: 32)
-
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyBytes, Int(key.count), paddedMessage, paddedMessage.count, &digest)
-
-            guard digest != [UInt8](zeroFilledTo: 32) else {
-                throw HMCryptoKitError.commonCryptoError(CCCryptorStatus(kCCUnspecifiedError))
-            }
-        #else
-            guard let hashFunction = EVP_sha256(),
-                HMAC(hashFunction, keyBytes, Int32(key.count), paddedMessage, paddedMessage.count, &digest, nil) != nil else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-        #endif
+        
+        CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyBytes, Int(key.count), paddedMessage, paddedMessage.count, &digest)
+        
+        guard digest != [UInt8](zeroFilledTo: 32) else {
+            throw HMCryptoKitError.commonCryptoError(CCCryptorStatus(kCCUnspecifiedError))
+        }
 
         return digest
     }

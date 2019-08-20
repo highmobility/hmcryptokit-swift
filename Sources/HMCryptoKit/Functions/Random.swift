@@ -27,12 +27,7 @@
 //
 
 import Foundation
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-    import CommonCrypto
-#else
-    import COpenSSL
-#endif
+import CommonCrypto
 
 
 public let kNonceSize           = 9
@@ -58,16 +53,10 @@ public extension HMCryptoKit {
     /// - Throws: `HMCryptoKitError`
     static func randomBytes(_ length: Int) throws -> [UInt8] {
         var bytes = [UInt8](zeroFilledTo: length)
-
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            guard CCRandomGenerateBytes(&bytes, length) == kCCSuccess else {
-                throw HMCryptoKitError.systemError(errno)
-            }
-        #else
-            guard RAND_bytes(&bytes, Int32(length)) == 1 else {
-                throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-        #endif
+        
+        guard CCRandomGenerateBytes(&bytes, length) == kCCSuccess else {
+            throw HMCryptoKitError.systemError(errno)
+        }
 
         return bytes
     }

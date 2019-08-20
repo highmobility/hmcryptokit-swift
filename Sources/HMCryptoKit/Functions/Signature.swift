@@ -27,12 +27,7 @@
 //
 
 import Foundation
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-    import Security
-#else
-    import COpenSSL
-#endif
+import Security
 
 
 public extension HMCryptoKit {
@@ -88,69 +83,35 @@ public extension HMCryptoKit {
         // Pad the message to be a multiple of 64
         let modulo = message.count % 64
         let paddedMessage = messageBytes + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
+        var error: Unmanaged<CFError>?
 
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            var error: Unmanaged<CFError>?
+        // DER encoding structure: 0x30 b1 0x02 b2 (vR) 0x02 b3 (vS) - http://crypto.stackexchange.com/a/1797/44274
+        // b1 - length of the remaining bytes
+        // b2 - length of vR
+        // b3 - length of vS
 
-            // DER encoding structure: 0x30 b1 0x02 b2 (vR) 0x02 b3 (vS) - http://crypto.stackexchange.com/a/1797/44274
-            // b1 - length of the remaining bytes
-            // b2 - length of vR
-            // b3 - length of vS
+        // Removes all the 0x00 bytes from the front for the SHORTEST possible representation
+        var vR = Array(signatureBytes[0..<32].drop { $0 == 0x00 })
+        var vS = Array(signatureBytes[32..<64].drop { $0 == 0x00 })
 
-            // Removes all the 0x00 bytes from the front for the SHORTEST possible representation
-            var vR = Array(signatureBytes[0..<32].drop { $0 == 0x00 })
-            var vS = Array(signatureBytes[32..<64].drop { $0 == 0x00 })
+        // If the first bit of the vector is 1, we'll need to prefix that vector with a 0x00
+        if vR[0] > 0b0111_1111 { vR.insert(0x00, at: 0) }
+        if vS[0] > 0b0111_1111 { vS.insert(0x00, at: 0) }
 
-            // If the first bit of the vector is 1, we'll need to prefix that vector with a 0x00
-            if vR[0] > 0b0111_1111 { vR.insert(0x00, at: 0) }
-            if vS[0] > 0b0111_1111 { vS.insert(0x00, at: 0) }
+        // The size of the vectors
+        let b2 = UInt8(truncatingIfNeeded: vR.count)
+        let b3 = UInt8(truncatingIfNeeded: vS.count)
+        let b1 = 4 + b2 + b3
 
-            // The size of the vectors
-            let b2 = UInt8(truncatingIfNeeded: vR.count)
-            let b3 = UInt8(truncatingIfNeeded: vS.count)
-            let b1 = 4 + b2 + b3
+        // Combine the bytes
+        let outputSignatureBytes: [UInt8] = [0x30, b1, 0x02, b2] + vR + [0x02, b3] + vS
+        let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (Data(paddedMessage) as CFData), (Data(outputSignatureBytes) as CFData), &error)
 
-            // Combine the bytes
-            let outputSignatureBytes: [UInt8] = [0x30, b1, 0x02, b2] + vR + [0x02, b3] + vS
-            let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (Data(paddedMessage) as CFData), (Data(outputSignatureBytes) as CFData), &error)
+        guard error == nil else {
+            throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
 
-            guard error == nil else {
-                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
-            }
-
-            return verified
-        #else
-            guard signature.count == 64 else {
-                throw HMCryptoKitError.invalidInputSize("signature")
-            }
-
-            guard publicKey.count == 64 else {
-                throw HMCryptoKitError.invalidInputSize("publicKey")
-            }
-
-            // Extract the vectors
-            guard let rVector = BN_bin2bn(Array(signatureBytes.prefix(32)), 32, nil),
-                let sVector = BN_bin2bn(signatureBytes.suffix(32), 32, nil),
-                let xVector = BN_bin2bn(Array(publicKey.prefix(32)), 32, nil),
-                let yVector = BN_bin2bn(Array(publicKey.suffix(32)), 32, nil) else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            // Create the key and sig
-            guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-                let sig = ECDSA_SIG_new(),
-                EC_KEY_set_public_key_affine_coordinates(key, xVector, yVector) == 1,
-                EC_KEY_check_key(key) == 1 else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            let digest = try sha256(message: paddedMessage)
-
-            sig.pointee.r = rVector
-            sig.pointee.s = sVector
-
-            return ECDSA_do_verify(digest, SHA256_DIGEST_LENGTH, sig, key) == 1
-        #endif
+        return verified
     }
 }
 

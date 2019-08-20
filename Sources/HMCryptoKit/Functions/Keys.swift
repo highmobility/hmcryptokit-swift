@@ -27,12 +27,7 @@
 //
 
 import Foundation
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-    import Security
-#else
-    import COpenSSL
-#endif
+import Security
 
 
 public extension HMCryptoKit {
@@ -47,43 +42,24 @@ public extension HMCryptoKit {
     ///     - `HMECKey`
     ///     - `keys(privateKey:)`
     static func keys() throws -> (privateKey: HMECKey, publicKey: HMECKey) {
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            let params: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeySizeInBits : 256]
-            var publicKey: HMECKey?
-            var privateKey: HMECKey?
-
-            let status = SecKeyGeneratePair(params, &publicKey, &privateKey)
-
-            switch status {
-            case errSecSuccess:
-                guard let publicKey = publicKey,
-                    let privateKey = privateKey else {
-                        throw HMCryptoKitError.osStatusError(errSecParam)
-                }
-
-                return (privateKey: privateKey, publicKey: publicKey)
-
-            default:
-                throw HMCryptoKitError.osStatusError(status)
+        let params: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeySizeInBits : 256]
+        var publicKey: HMECKey?
+        var privateKey: HMECKey?
+        
+        let status = SecKeyGeneratePair(params, &publicKey, &privateKey)
+        
+        switch status {
+        case errSecSuccess:
+            guard let publicKey = publicKey,
+                let privateKey = privateKey else {
+                    throw HMCryptoKitError.osStatusError(errSecParam)
             }
-        #else
-            // Create the key
-            guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-                EC_KEY_generate_key(key) == 1,
-                EC_KEY_check_key(key) == 1,
-                let privateBN = EC_KEY_get0_private_key(key) else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            let privateOffset = 32 - Int(ceil(Float(BN_num_bits(privateBN)) / 8.0))
-            var privateKey = [UInt8](zeroFilledTo: 32)
-
-            guard BN_bn2bin(privateBN, &privateKey + privateOffset) == 32 else {
-                throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            return try keys(privateKey: privateKey)
-        #endif
+            
+            return (privateKey: privateKey, publicKey: publicKey)
+            
+        default:
+            throw HMCryptoKitError.osStatusError(status)
+        }
     }
 
     /// Generate a keypair from the private key.
