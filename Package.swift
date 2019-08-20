@@ -10,14 +10,12 @@ let package = Package(
     ],
     products: [
         .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
-        .library(name: "HMCryptoKitCommandsInfo", targets: ["HMCryptoKitCommandsInfo"]),
     ],
     dependencies: [
         .package(url: "https://github.com/highmobility/hm-utilities-swift", .upToNextMinor(from: "1.4.1")),
     ],
     targets: [
         .target(name: "HMCryptoKit", dependencies: ["HMUtilities"]),
-        .target(name: "HMCryptoKitCommandsInfo", dependencies: ["HMCryptoKit"]),
         .testTarget(name: "HMCryptoKitTests", dependencies: ["HMCryptoKit"]),
     ]
 )
