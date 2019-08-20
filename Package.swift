@@ -13,7 +13,6 @@ let package = Package(
         .library(name: "HMCryptoKitCommandsInfo", targets: ["HMCryptoKitCommandsInfo"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/copenssl", .exact("1.0.0-rc.1")),
         .package(url: "https://github.com/highmobility/hm-utilities-swift", .upToNextMinor(from: "1.4.1")),
     ],
     targets: [
