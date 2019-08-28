@@ -36,18 +36,11 @@ public extension HMCryptoKit {
 
     static func sha256<C: Collection>(message: C) throws -> [UInt8] where C.Element == UInt8 {
         var digest = [UInt8](zeroFilledTo: Int(kDigestLength))
-
         let messageBytes = Array(message)
 
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            guard CC_SHA256(messageBytes, CC_LONG(message.count), &digest) != nil else {
-                throw HMCryptoKitError.commonCryptoError(CCCryptorStatus(kCCUnspecifiedError))
-            }
-        #else
-            guard SHA256(messageBytes, Int(message.count), &digest) != nil else {
-                throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-        #endif
+        guard CC_SHA256(messageBytes, CC_LONG(message.count), &digest) != nil else {
+            throw HMCryptoKitError.commonCryptoError(CCCryptorStatus(kCCUnspecifiedError))
+        }
 
         return digest
     }

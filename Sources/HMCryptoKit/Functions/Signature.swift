@@ -118,67 +118,31 @@ public extension HMCryptoKit {
 private extension HMCryptoKit {
 
     static func createSignature<C: Collection>(message: C, privateKey: HMECKey) throws -> [UInt8] where C.Element == UInt8 {
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            var error: Unmanaged<CFError>?
-            let messageBytes = Array(message)
-
-            // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
-            guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (Data(messageBytes) as CFData), &error) as Data? else {
-                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
-            }
-
-            /*
-             The format: 0x30 b1 0x02 b2 (vr) 0x02 b3 (vs)
-             */
-            let b2 = signature[3]           // Length of vR
-            let b3 = signature[5 + Int(b2)] // Length of vS
-
-            var vR = signature[4 ..< (4 + Int(b2))]
-            var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))]
-
-            // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
-            vR = vR.drop { $0 == 0x00 }
-            vS = vS.drop { $0 == 0x00 }
-
-            // Expands the vectors to our desired size of 32 bytes
-            while vR.count < 32 { vR.insert(0x00, at: 0) }
-            while vS.count < 32 { vS.insert(0x00, at: 0) }
-
-            return Array(vR + vS)
-        #else
-            // Manage the key
-            guard privateKey.count == 32 else {
-                throw HMCryptoKitError.invalidInputSize("privateKey")
-            }
-
-            guard let key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1),
-                let keyBN = BN_bin2bn(privateKey, 32, nil),
-                EC_KEY_set_private_key(key, keyBN) == 1 else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            let modulo = message.count % 64
-            let paddedMessage = Array(message) + [UInt8](zeroFilledTo: (modulo == 0) ? 0 : (64 - modulo))
-            let digest = try sha256(message: paddedMessage)
-
-            // Create the signature
-            guard let sig = ECDSA_do_sign(digest, SHA256_DIGEST_LENGTH, key) else {
-                throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            // Extract the signature
-            let rvOffset = 32 - Int(ceil(Double(BN_num_bits(sig.pointee.r)) / 8.0))
-            let svOffset = 32 - Int(ceil(Double(BN_num_bits(sig.pointee.s)) / 8.0))
-            var rVector = [UInt8](zeroFilledTo: 32)
-            var sVector = [UInt8](zeroFilledTo: 32)
-
-            // Because the OpenSSL returns the SHORTEST possible format (meaning it cuts 0-bits from the vector's front)
-            guard BN_bn2bin(sig.pointee.r, &rVector + rvOffset) != 0,
-                BN_bn2bin(sig.pointee.s, &sVector + svOffset) != 0 else {
-                    throw HMCryptoKitError.openSSLError(getOpenSSLError())
-            }
-
-            return rVector + sVector
-        #endif
+        var error: Unmanaged<CFError>?
+        let messageBytes = Array(message)
+        
+        // "CFData -> Data" cast always succeeds - this has the "as?" just to do the conversion
+        guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, (Data(messageBytes) as CFData), &error) as Data? else {
+            throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        }
+        
+        /*
+         The format: 0x30 b1 0x02 b2 (vr) 0x02 b3 (vs)
+         */
+        let b2 = signature[3]           // Length of vR
+        let b3 = signature[5 + Int(b2)] // Length of vS
+        
+        var vR = signature[4 ..< (4 + Int(b2))]
+        var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))]
+        
+        // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
+        vR = vR.drop { $0 == 0x00 }
+        vS = vS.drop { $0 == 0x00 }
+        
+        // Expands the vectors to our desired size of 32 bytes
+        while vR.count < 32 { vR.insert(0x00, at: 0) }
+        while vS.count < 32 { vS.insert(0x00, at: 0) }
+        
+        return Array(vR + vS)
     }
 }

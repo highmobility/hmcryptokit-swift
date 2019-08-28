@@ -12,7 +12,7 @@
 		204200262068EEAD006367D5 /* AESTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200252068EEAD006367D5 /* AESTests.swift */; };
 		204200282069070D006367D5 /* HMACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200272069070D006367D5 /* HMACTests.swift */; };
 		2042002A20690C09006367D5 /* SignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2042002920690C09006367D5 /* SignatureTests.swift */; };
-		208389F7230C24E800573E3A /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 208389F6230C24E800573E3A /* HMUtilities */; };
+		208389F7230C24E800573E3A /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 208389F6230C24E800573E3A /* HMUtilities */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
 		OBJ_79 /* SecKey+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* SecKey+Extensions.swift */; };
 		OBJ_80 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* UInt8Collection+Extensions.swift */; };

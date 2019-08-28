@@ -92,7 +92,9 @@ public extension HMCryptoKit {
         }
 
         let binaryBytes = Array(binary)
-        let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeyClass : kSecAttrKeyClassPublic, kSecAttrKeySizeInBits : 256]
+        let attributes: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom,
+                                        kSecAttrKeyClass : kSecAttrKeyClassPublic,
+                                        kSecAttrKeySizeInBits : 256]
         let bytes = [0x04] + binaryBytes
         var error: Unmanaged<CFError>?
 
