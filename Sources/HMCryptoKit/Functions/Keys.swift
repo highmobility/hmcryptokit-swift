@@ -153,7 +153,7 @@ public extension HMCryptoKit {
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso: `HMECKey`
     static func sharedKey(privateKey: HMECKey, publicKey: HMECKey) throws -> [UInt8] {
-        let params: NSDictionary = [SecKeyKeyExchangeParameter.requestedSize : 32]
+        let params: NSDictionary = [SecKeyKeyExchangeParameter.requestedSize.rawValue : 32]
         var error: Unmanaged<CFError>?
 
         guard let sharedKey = SecKeyCopyKeyExchangeResult(privateKey, .ecdhKeyExchangeStandardX963SHA256, publicKey, params, &error) else {
