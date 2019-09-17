@@ -27,12 +27,6 @@
 //
 
 import Foundation
-import HMUtilities
-import Security
-
-
-/// The key type
-public typealias HMECKey = SecKey
 
 
 public struct HMCryptoKit {

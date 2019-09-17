@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202918FF2330F16B007503ED /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 202918FE2330F16B007503ED /* HMUtilities */; };
 		204200222068DFF3006367D5 /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200212068DFF3006367D5 /* RandomTests.swift */; };
 		204200242068E228006367D5 /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200232068E228006367D5 /* KeysTests.swift */; };
 		204200262068EEAD006367D5 /* AESTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200252068EEAD006367D5 /* AESTests.swift */; };
 		204200282069070D006367D5 /* HMACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200272069070D006367D5 /* HMACTests.swift */; };
 		2042002A20690C09006367D5 /* SignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2042002920690C09006367D5 /* SignatureTests.swift */; };
-		208389F7230C24E800573E3A /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 208389F6230C24E800573E3A /* HMUtilities */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
 		OBJ_79 /* SecKey+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* SecKey+Extensions.swift */; };
 		OBJ_80 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* UInt8Collection+Extensions.swift */; };
@@ -43,6 +43,7 @@
 		204200252068EEAD006367D5 /* AESTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESTests.swift; sourceTree = "<group>"; };
 		204200272069070D006367D5 /* HMACTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMACTests.swift; sourceTree = "<group>"; };
 		2042002920690C09006367D5 /* SignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureTests.swift; sourceTree = "<group>"; };
+		209A0B63232FC66A001C4DA9 /* XCFrameworkBuilder.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = XCFrameworkBuilder.sh; sourceTree = "<group>"; };
 		"HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HMCryptoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"HMCryptoKit::HMCryptoKitTests::Product" /* HMCryptoKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = HMCryptoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* SecKey+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecKey+Extensions.swift"; sourceTree = "<group>"; };
@@ -71,13 +72,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				208389F7230C24E800573E3A /* HMUtilities in Frameworks */,
+				202918FF2330F16B007503ED /* HMUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		209A0B62232FC66A001C4DA9 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				209A0B63232FC66A001C4DA9 /* XCFrameworkBuilder.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		OBJ_12 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +143,7 @@
 			children = (
 				OBJ_6 /* Package.swift */,
 				2025022021B1577700F8F5A3 /* Testground.playground */,
+				209A0B62232FC66A001C4DA9 /* Scripts */,
 				OBJ_7 /* Sources */,
 				OBJ_25 /* Tests */,
 				OBJ_33 /* Products */,
@@ -153,8 +163,8 @@
 			children = (
 				OBJ_9 /* Extensions */,
 				OBJ_12 /* Functions */,
-				OBJ_19 /* HMCryptoKit.swift */,
 				OBJ_20 /* Other */,
+				OBJ_19 /* HMCryptoKit.swift */,
 			);
 			name = HMCryptoKit;
 			path = Sources/HMCryptoKit;
@@ -185,7 +195,7 @@
 			);
 			name = HMCryptoKit;
 			packageProductDependencies = (
-				208389F6230C24E800573E3A /* HMUtilities */,
+				202918FE2330F16B007503ED /* HMUtilities */,
 			);
 			productName = HMCryptoKit;
 			productReference = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */;
@@ -236,7 +246,7 @@
 			);
 			mainGroup = OBJ_5;
 			packageReferences = (
-				208389F5230C24E800573E3A /* XCRemoteSwiftPackageReference "hm-utilities-swift" */,
+				202918FD2330F16B007503ED /* XCRemoteSwiftPackageReference "hm-utilities-swift" */,
 			);
 			productRefGroup = OBJ_33 /* Products */;
 			projectDirPath = "";
@@ -442,6 +452,7 @@
 		OBJ_76 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -461,6 +472,7 @@
 		OBJ_77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -510,7 +522,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		208389F5230C24E800573E3A /* XCRemoteSwiftPackageReference "hm-utilities-swift" */ = {
+		202918FD2330F16B007503ED /* XCRemoteSwiftPackageReference "hm-utilities-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:highmobility/hm-utilities-swift.git";
 			requirement = {
@@ -521,9 +533,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		208389F6230C24E800573E3A /* HMUtilities */ = {
+		202918FE2330F16B007503ED /* HMUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 208389F5230C24E800573E3A /* XCRemoteSwiftPackageReference "hm-utilities-swift" */;
+			package = 202918FD2330F16B007503ED /* XCRemoteSwiftPackageReference "hm-utilities-swift" */;
 			productName = HMUtilities;
 		};
 /* End XCSwiftPackageProductDependency section */

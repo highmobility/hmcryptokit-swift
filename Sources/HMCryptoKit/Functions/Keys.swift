@@ -41,10 +41,10 @@ public extension HMCryptoKit {
     /// - SeeAlso:
     ///     - `HMECKey`
     ///     - `keys(privateKey:)`
-    static func keys() throws -> (privateKey: HMECKey, publicKey: HMECKey) {
+    static func keys() throws -> (privateKey: SecKey, publicKey: SecKey) {
         let params: NSDictionary = [kSecAttrKeyType : kSecAttrKeyTypeECSECPrimeRandom, kSecAttrKeySizeInBits : 256]
-        var publicKey: HMECKey?
-        var privateKey: HMECKey?
+        var publicKey: SecKey?
+        var privateKey: SecKey?
         
         let status = SecKeyGeneratePair(params, &publicKey, &privateKey)
         
@@ -72,7 +72,7 @@ public extension HMCryptoKit {
     /// - SeeAlso:
     ///     - `HMECKey`
     ///     - `keys()`
-    static func keys(privateKey: HMECKey) throws -> (privateKey: HMECKey, publicKey: HMECKey) {
+    static func keys(privateKey: SecKey) throws -> (privateKey: SecKey, publicKey: SecKey) {
         guard let publicKey = SecKeyCopyPublicKey(privateKey) else {
             throw HMCryptoKitError.osStatusError(errSecInvalidKeyRef)
         }
@@ -86,7 +86,7 @@ public extension HMCryptoKit {
     /// - Returns: The converted public key.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso: `HMECKey`
-    static func publicKey<C: Collection>(binary: C) throws -> HMECKey where C.Element == UInt8 {
+    static func publicKey<C: Collection>(binary: C) throws -> SecKey where C.Element == UInt8 {
         guard binary.count == 64 else {
             throw HMCryptoKitError.invalidInputSize("binary")
         }
@@ -115,7 +115,7 @@ public extension HMCryptoKit {
     /// - Returns: The converted private key.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso: `HMECKey`
-    static func privateKey<C: Collection>(privateKeyBinary: C, publicKeyBinary: C) throws -> HMECKey where C.Element == UInt8 {
+    static func privateKey<C: Collection>(privateKeyBinary: C, publicKeyBinary: C) throws -> SecKey where C.Element == UInt8 {
         guard privateKeyBinary.count == 32 else {
             throw HMCryptoKitError.invalidInputSize("privateKeyBinary")
         }
@@ -152,7 +152,7 @@ public extension HMCryptoKit {
     /// - Returns: The generated shared key, 32 bytes.
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso: `HMECKey`
-    static func sharedKey(privateKey: HMECKey, publicKey: HMECKey) throws -> [UInt8] {
+    static func sharedKey(privateKey: SecKey, publicKey: SecKey) throws -> [UInt8] {
         let params: NSDictionary = [SecKeyKeyExchangeParameter.requestedSize.rawValue : 32]
         var error: Unmanaged<CFError>?
 
