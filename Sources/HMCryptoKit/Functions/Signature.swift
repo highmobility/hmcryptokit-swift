@@ -107,8 +107,10 @@ public extension HMCryptoKit {
         let outputSignatureBytes: [UInt8] = [0x30, b1, 0x02, b2] + vR + [0x02, b3] + vS
         let verified = SecKeyVerifySignature(publicKey, .ecdsaSignatureMessageX962SHA256, (Data(paddedMessage) as CFData), (Data(outputSignatureBytes) as CFData), &error)
 
-        guard error == nil else {
-            throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+        // Error -67808 notes that the EC signature verification failed, no match
+        guard (error == nil) ||
+            CFErrorGetCode(error!.takeRetainedValue()) == -67808 else {
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
         }
 
         return verified
@@ -131,17 +133,20 @@ private extension HMCryptoKit {
          */
         let b2 = signature[3]           // Length of vR
         let b3 = signature[5 + Int(b2)] // Length of vS
+        let vREndIdx = 4 + Int(b2)
+        let vSStartIdx = 6 + Int(b2)
+        let vSEndIdx = vSStartIdx + Int(b3)
         
-        var vR = signature[4 ..< (4 + Int(b2))]
-        var vS = signature[(6 + Int(b2)) ..< (6 + Int(b2) + Int(b3))]
+        var vR = signature[4 ..< vREndIdx]
+        var vS = signature[vSStartIdx ..< vSEndIdx]
         
         // Removes the front 0x00 bytes (if the vector's 1st bit is 1, there's a 0x00 byte prefixed to it)
         vR = vR.drop { $0 == 0x00 }
         vS = vS.drop { $0 == 0x00 }
-        
+
         // Expands the vectors to our desired size of 32 bytes
-        while vR.count < 32 { vR.insert(0x00, at: 0) }
-        while vS.count < 32 { vS.insert(0x00, at: 0) }
+        if vR.count < 32 { vR = [UInt8](repeating: 0x00, count: max(32 - vR.count, 0)) + vR }
+        if vS.count < 32 { vS = [UInt8](repeating: 0x00, count: max(32 - vS.count, 0)) + vS }
         
         return Array(vR + vS)
     }

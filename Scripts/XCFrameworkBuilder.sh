@@ -64,7 +64,7 @@ xcodebuild archive \
     -destination="iOS" \
     SKIP_INSTALL=NO \
     BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
-#    -quiet
+    -quiet
 
 # Archive for simulator
 echo "Archiving simulator..."
@@ -74,10 +74,10 @@ xcodebuild archive \
     -archivePath "${BUILD_DIR_iphonesimulator}/${NAME}.xcarchive" \
     -derivedDataPath "${BUILD_DIR_iphonesimulator}/Derived Data" \
     -sdk iphonesimulator \
-    -destination="iOS Simulator"
+    -destination="iOS Simulator" \
     SKIP_INSTALL=NO \
     BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
-#    -quiet
+    -quiet
 
 # Build xcframework with two archives
 echo "Creating XCFramework..."
@@ -116,4 +116,4 @@ done
 
 # Removes the "build/" folder from the source folder
 echo "Removing build directory..."
-rm -rfd "${SRCROOT}/build"
+rm -rfd "${BUILD_DIR}"
