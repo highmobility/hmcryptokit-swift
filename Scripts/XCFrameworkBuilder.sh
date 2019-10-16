@@ -43,10 +43,17 @@ BUILD_DIR_iphonesimulator="${BUILD_DIR}/iphonesimulator"
 FINAL_OUTPUT="${SRCROOT}/${NAME}.xcframework"
 XCFRAMEWORK_OUTPUT="${BUILD_DIR}/${NAME}.xcframework"
 
+TARGETS=( "iphoneos" "iphonesimulator" )
+SYMBOLS_DIR="${SRCROOT}/symbols"
+
+
 # Remove the "old" build dir
 echo "Cleaning previous build products..."
 rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
+
+# And the symbols dir
+rm -rf $SYMBOLS_DIR
 
 
 ######################
@@ -61,7 +68,7 @@ xcodebuild archive \
     -archivePath "${BUILD_DIR_iphoneos}/${NAME}.xcarchive" \
     -derivedDataPath "${BUILD_DIR_iphoneos}/Derived Data" \
     -sdk iphoneos \
-    -destination="iOS" \
+    -destination "generic/platform=iOS" \
     SKIP_INSTALL=NO \
     BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
     -quiet
@@ -74,7 +81,7 @@ xcodebuild archive \
     -archivePath "${BUILD_DIR_iphonesimulator}/${NAME}.xcarchive" \
     -derivedDataPath "${BUILD_DIR_iphonesimulator}/Derived Data" \
     -sdk iphonesimulator \
-    -destination="iOS Simulator" \
+    -destination "generic/platform=iOS Simulator" \
     SKIP_INSTALL=NO \
     BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
     -quiet
@@ -98,6 +105,21 @@ cp -f -R "${XCFRAMEWORK_OUTPUT}" "${FINAL_OUTPUT}"
 
 
 ######################
+# Hold on to files
+######################
+
+echo "Copying dSYM files..."
+mkdir $SYMBOLS_DIR
+
+for target in "${TARGETS[@]}"
+do
+    mkdir "${SYMBOLS_DIR}/${target}"
+
+    cp -f -R "${BUILD_DIR}/${target}/Derived Data/Build/Intermediates.noindex/ArchiveIntermediates/${NAME}/BuildProductsPath/Release-${target}/${NAME}.framework.dSYM" "${SYMBOLS_DIR}/${target}/${NAME}.framework.dSYM"
+done
+
+
+######################
 # "Fix" the CFBundleVersion being missing
 ######################
 
@@ -116,4 +138,4 @@ done
 
 # Removes the "build/" folder from the source folder
 echo "Removing build directory..."
-rm -rfd "${BUILD_DIR}"
+rm -rfd "${SRCROOT}/build"
