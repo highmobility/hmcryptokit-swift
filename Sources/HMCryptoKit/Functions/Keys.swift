@@ -157,23 +157,34 @@ public extension HMCryptoKit {
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso: `HMECKey`
     static func sharedKey(privateKey: SecKey, publicKey: SecKey) throws -> [UInt8] {
-        if #available(iOS 13.0, *) {
-            // TODO: CryptoKitError
-            let privateKey = try P256.KeyAgreement.PrivateKey.init(rawRepresentation: privateKey.bytes)
-            let publicKey = try P256.KeyAgreement.PublicKey.init(rawRepresentation: publicKey.bytes)
-            let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
+        #if canImport(CryptoKit)
+            if #available(iOS 13.0, *) {
+                // TODO: CryptoKitError
+                let privateKey = try P256.KeyAgreement.PrivateKey.init(rawRepresentation: privateKey.bytes)
+                let publicKey = try P256.KeyAgreement.PublicKey.init(rawRepresentation: publicKey.bytes)
+                let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
 
-            return sharedSecret.withUnsafeBytes { $0.bytes }
-        }
-        else {
-            let params: NSDictionary = [(SecKeyKeyExchangeParameter.requestedSize.rawValue as String) : 32]
-            var error: Unmanaged<CFError>?
-
-            guard let sharedKey = SecKeyCopyKeyExchangeResult(privateKey, .ecdhKeyExchangeStandardX963SHA256, publicKey, params, &error) else {
-                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+                return sharedSecret.withUnsafeBytes { $0.bytes }
             }
+            else {
+                return try pre13sharedKey(privateKey: privateKey, publicKey: publicKey)
+            }
+        #else
+            return try pre13sharedKey(privateKey: privateKey, publicKey: publicKey)
+        #endif
+    }
+}
 
-            return Array(sharedKey as Data)
+private extension HMCryptoKit {
+
+    static func pre13sharedKey(privateKey: SecKey, publicKey: SecKey) throws -> [UInt8] {
+        let params: NSDictionary = [(SecKeyKeyExchangeParameter.requestedSize.rawValue as String) : 32]
+        var error: Unmanaged<CFError>?
+
+        guard let sharedKey = SecKeyCopyKeyExchangeResult(privateKey, .ecdhKeyExchangeStandardX963SHA256, publicKey, params, &error) else {
+            throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
         }
+
+        return Array(sharedKey as Data)
     }
 }
