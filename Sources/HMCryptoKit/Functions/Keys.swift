@@ -29,6 +29,10 @@
 import Foundation
 import Security
 
+#if canImport(CryptoKit)
+import CryptoKit
+#endif
+
 
 public extension HMCryptoKit {
 
@@ -153,13 +157,23 @@ public extension HMCryptoKit {
     /// - Throws: `HMCryptoKitError`
     /// - SeeAlso: `HMECKey`
     static func sharedKey(privateKey: SecKey, publicKey: SecKey) throws -> [UInt8] {
-        let params: NSDictionary = [SecKeyKeyExchangeParameter.requestedSize.rawValue : 32]
-        var error: Unmanaged<CFError>?
+        if #available(iOS 13.0, *) {
+            // TODO: CryptoKitError
+            let privateKey = try P256.KeyAgreement.PrivateKey.init(rawRepresentation: privateKey.bytes)
+            let publicKey = try P256.KeyAgreement.PublicKey.init(rawRepresentation: publicKey.bytes)
+            let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
 
-        guard let sharedKey = SecKeyCopyKeyExchangeResult(privateKey, .ecdhKeyExchangeStandardX963SHA256, publicKey, params, &error) else {
-            throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+            return sharedSecret.withUnsafeBytes { $0.bytes }
         }
+        else {
+            let params: NSDictionary = [(SecKeyKeyExchangeParameter.requestedSize.rawValue as String) : 32]
+            var error: Unmanaged<CFError>?
 
-        return Array(sharedKey as Data)
+            guard let sharedKey = SecKeyCopyKeyExchangeResult(privateKey, .ecdhKeyExchangeStandardX963SHA256, publicKey, params, &error) else {
+                throw HMCryptoKitError.secKeyError(error!.takeRetainedValue())
+            }
+
+            return Array(sharedKey as Data)
+        }
     }
 }
