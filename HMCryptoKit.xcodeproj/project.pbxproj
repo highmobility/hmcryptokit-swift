@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2014879B234F4E2E007D738F /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 2014879A234F4E2E007D738F /* HMUtilities */; };
 		204200222068DFF3006367D5 /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200212068DFF3006367D5 /* RandomTests.swift */; };
 		204200242068E228006367D5 /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200232068E228006367D5 /* KeysTests.swift */; };
 		204200262068EEAD006367D5 /* AESTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200252068EEAD006367D5 /* AESTests.swift */; };
 		204200282069070D006367D5 /* HMACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204200272069070D006367D5 /* HMACTests.swift */; };
 		2042002A20690C09006367D5 /* SignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2042002920690C09006367D5 /* SignatureTests.swift */; };
+		206F957B23C5F63E00D714AE /* HMUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 206F957A23C5F63E00D714AE /* HMUtilities */; };
 		OBJ_57 /* HMCryptoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */; };
 		OBJ_79 /* SecKey+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* SecKey+Extensions.swift */; };
 		OBJ_80 /* UInt8Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* UInt8Collection+Extensions.swift */; };
@@ -72,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				2014879B234F4E2E007D738F /* HMUtilities in Frameworks */,
+				206F957B23C5F63E00D714AE /* HMUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +195,7 @@
 			);
 			name = HMCryptoKit;
 			packageProductDependencies = (
-				2014879A234F4E2E007D738F /* HMUtilities */,
+				206F957A23C5F63E00D714AE /* HMUtilities */,
 			);
 			productName = HMCryptoKit;
 			productReference = "HMCryptoKit::HMCryptoKit::Product" /* HMCryptoKit.framework */;
@@ -246,7 +246,7 @@
 			);
 			mainGroup = OBJ_5;
 			packageReferences = (
-				20148799234F4E2E007D738F /* XCRemoteSwiftPackageReference "hm-utilities-swift" */,
+				206F957923C5F63E00D714AE /* XCRemoteSwiftPackageReference "hmutilities-swift" */,
 			);
 			productRefGroup = OBJ_33 /* Products */;
 			projectDirPath = "";
@@ -451,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CURRENT_PROJECT_VERSION = "$(MARKETING_VERSION)";
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -459,7 +460,7 @@
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKit_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				MARKETING_VERSION = 1.2.14;
+				MARKETING_VERSION = 1.2.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.high-mobility.hmcryptokit";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -472,6 +473,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CURRENT_PROJECT_VERSION = "$(MARKETING_VERSION)";
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -480,7 +482,7 @@
 				INFOPLIST_FILE = HMCryptoKit.xcodeproj/HMCryptoKit_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				MARKETING_VERSION = 1.2.14;
+				MARKETING_VERSION = 1.2.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.high-mobility.hmcryptokit";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -522,20 +524,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		20148799234F4E2E007D738F /* XCRemoteSwiftPackageReference "hm-utilities-swift" */ = {
+		206F957923C5F63E00D714AE /* XCRemoteSwiftPackageReference "hmutilities-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:highmobility/hm-utilities-swift.git";
+			repositoryURL = "git@github.com:highmobility/hmutilities-swift.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 1.4.1;
+				minimumVersion = 1.4.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2014879A234F4E2E007D738F /* HMUtilities */ = {
+		206F957A23C5F63E00D714AE /* HMUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 20148799234F4E2E007D738F /* XCRemoteSwiftPackageReference "hm-utilities-swift" */;
+			package = 206F957923C5F63E00D714AE /* XCRemoteSwiftPackageReference "hmutilities-swift" */;
 			productName = HMUtilities;
 		};
 /* End XCSwiftPackageProductDependency section */

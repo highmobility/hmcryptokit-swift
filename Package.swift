@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/highmobility/hm-utilities-swift", .upToNextMinor(from: "1.4.1")),
+        .package(url: "https://github.com/highmobility/hmutilities-swift", .upToNextMinor(from: "1.4.1")),
     ],
     targets: [
         .target(name: "HMCryptoKit", dependencies: ["HMUtilities"]),
