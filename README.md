@@ -11,7 +11,7 @@ Table of contents
    * [Integration](#integration)
    * [Requirements](#requirements)
    * [Contributing](#contributing)
-   * [Licence](#licence)
+   * [License](#license)
 <!--te-->
 
 
@@ -55,6 +55,6 @@ To start developing HMCryptoKit, please run `git clone git@github.com:highmobili
 See more in [CONTRIBUTING.md](https://github.com/highmobility/hmcryptokit-swift/tree/master/CONTRIBUTING.md)
 
 
-## Licence
+## License
 
-This repository is using MIT licence. See more in [LICENCE](https://github.com/highmobility/hmcryptokit-swift/tree/master/LICENSE)
+This repository is using MIT license. See more in [LICENSE](https://github.com/highmobility/hmcryptokit-swift/tree/master/LICENSE)
