@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "HMCryptoKit",
     platforms: [
-        .iOS(.v10)
+        .iOS(.v10),
+        .macOS(.v10_13)
     ],
     products: [
         .library(name: "HMCryptoKit", targets: ["HMCryptoKit"]),
